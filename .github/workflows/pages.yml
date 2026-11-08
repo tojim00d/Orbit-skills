@@ -32,8 +32,8 @@ jobs:
           cp -R docs/. /tmp/site/
           cd /tmp/site
           git init -q -b gh-pages
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "tojim00d"
+          git config user.email "120990901+tojim00d@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
             echo "docs/ is unchanged — nothing to publish"
