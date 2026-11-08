@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to release"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create GitHub release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+          name: "Orbit ${{ github.ref_name }} — 89 agent skills, one pipeline"
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          body: |
+            **Orbit ${{ github.ref_name }}** — an open-source Claude Code skill pack with **89 agent skills** that form one end-to-end software lifecycle:
+
+            ```
+            ① Understand  →  ② Build  →  ③ Operate  →  ↺ next loop
+            ```
+
+            Native on Claude Code; the skills are plain `SKILL.md` folders, so Codex, Qwen Code, GLM, DeepSeek and any Agent Skills loader can use them too. Shared artifacts live in `.orbit/`; every skill has a step number, input, output and next step.
+
+            **Highlights**
+            - 89 skills in one pipeline: task clarification, codebase knowledge graphs, reverse engineering (Docker/JAR/Helm/binaries/web apps), spec-driven development on OpenSpec, TDD, code and security review, Kubernetes/Helm/GitOps, project maps and diagrams, onboarding, incidents.
+            - One shared artifact contract (`.orbit/`), so work survives new sessions and hand-overs.
+            - 8 ready-made routes in `/orbit:orbit`; any skill via `/orbit:<skill>`.
+            - Agent-agnostic: `AGENTS.md`, `COMPATIBILITY.md`, `./install.sh --skills-dir`.
+            - MIT for Orbit's own work; 18 community packs and the ASD-STE100 standard credited in every skill.
+
+            **Install**
+            ```bash
+            claude plugin marketplace add tojim00d/Orbit-skills
+            claude plugin install orbit@orbit
+            # restart Claude Code, then:
+            /orbit:orbit build a feature that exports reports to CSV
+            ```
+
+            **Links**
+            - Website: https://tojim00d.github.io/Orbit-skills/
+            - Pack map: https://tojim00d.github.io/Orbit-skills/map.html
+            - Catalog: https://github.com/tojim00d/Orbit-skills/blob/main/CATALOG.md
+            - Credits: https://github.com/tojim00d/Orbit-skills/blob/main/CREDITS.md

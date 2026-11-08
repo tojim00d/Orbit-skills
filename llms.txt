@@ -1,0 +1,32 @@
+# Orbit
+
+> Orbit is an open-source Claude Code plugin (skill pack) with 89 agent skills that form one end-to-end software-delivery pipeline: Understand → Build → Operate. It covers task clarification, codebase knowledge graphs, reverse engineering of apps/images/binaries, spec-driven development on OpenSpec, test-first implementation, code and security review, Kubernetes/Helm/GitOps release, interactive project maps, static diagrams, onboarding and incident response. MIT licence. Native on Claude Code; the skills are standard SKILL.md folders, portable to Codex, Qwen Code, GLM, DeepSeek and any Agent Skills loader.
+
+Every skill has a step number, an input, an output and a next step; all skills share one artifact folder `.orbit/`. Skill instructions are in English; answers follow the user's language. Methods from 18 community skill packs and the ASD-STE100 standard were rewritten and improved, with references in each skill.
+
+## Docs
+- [README](https://github.com/tojim00d/Orbit-skills/blob/main/README.md): what Orbit is, install, FAQ — EN
+- [README (RU)](https://github.com/tojim00d/Orbit-skills/blob/main/README.ru.md) — русская версия
+- [AGENTS.md](https://github.com/tojim00d/Orbit-skills/blob/main/AGENTS.md): entry point for non-Claude agents (Codex, Qwen Code, DeepSeek, Cursor)
+- [COMPATIBILITY.md](https://github.com/tojim00d/Orbit-skills/blob/main/COMPATIBILITY.md): which agents and models work, and how
+- [Catalog](https://github.com/tojim00d/Orbit-skills/blob/main/CATALOG.md): all 89 skills in pipeline order with inputs, outputs and sources
+- [Artifacts contract](https://github.com/tojim00d/Orbit-skills/blob/main/ARTIFACTS.md): the shared `.orbit/` folder layout
+- [Interactive pack map](https://tojim00d.github.io/Orbit-skills/map.html) / [карта пака](https://tojim00d.github.io/Orbit-skills/map.ru.html)
+- [Website (EN)](https://tojim00d.github.io/Orbit-skills/) / [сайт (RU)](https://tojim00d.github.io/Orbit-skills/index.ru.html)
+- [Credits](https://github.com/tojim00d/Orbit-skills/blob/main/CREDITS.md): sources and licences
+
+## Key skills
+- [orbit](https://github.com/tojim00d/Orbit-skills/blob/main/plugins/orbit/skills/orbit/SKILL.md): router — sizes the task and proposes a 3–7 step route
+- [clarify-task](https://github.com/tojim00d/Orbit-skills/blob/main/plugins/orbit/skills/clarify-task/SKILL.md): make a task unambiguous
+- [map-knowledge](https://github.com/tojim00d/Orbit-skills/blob/main/plugins/orbit/skills/map-knowledge/SKILL.md): knowledge graph of a codebase with file:line evidence
+- [reverse-app](https://github.com/tojim00d/Orbit-skills/blob/main/plugins/orbit/skills/reverse-app/SKILL.md): reverse-engineering entry point (artifacts, binaries, web apps, APIs)
+- [run-spec-loop](https://github.com/tojim00d/Orbit-skills/blob/main/plugins/orbit/skills/run-spec-loop/SKILL.md): spec-driven development on OpenSpec with a project map
+- [test-first](https://github.com/tojim00d/Orbit-skills/blob/main/plugins/orbit/skills/test-first/SKILL.md): red → green → clean
+- [prove-done](https://github.com/tojim00d/Orbit-skills/blob/main/plugins/orbit/skills/prove-done/SKILL.md): no "done" without evidence
+- [ship-k8s](https://github.com/tojim00d/Orbit-skills/blob/main/plugins/orbit/skills/ship-k8s/SKILL.md): Kubernetes, Helm, GitOps
+- [project-map](https://github.com/tojim00d/Orbit-skills/blob/main/plugins/orbit/skills/project-map/SKILL.md): interactive one-file HTML project map
+- [project-diagram](https://github.com/tojim00d/Orbit-skills/blob/main/plugins/orbit/skills/project-diagram/SKILL.md): static SVG/PNG phase diagrams
+
+## Install
+- Claude Code: `claude plugin marketplace add tojim00d/Orbit-skills` then `claude plugin install orbit@orbit`, restart Claude Code, type `/orbit:orbit`.
+- Other agents: `./install.sh --skills-dir <dir>` and read `AGENTS.md`.

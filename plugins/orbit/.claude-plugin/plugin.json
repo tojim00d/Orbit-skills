@@ -1,0 +1,20 @@
+{
+  "name": "orbit",
+  "version": "3.0.0",
+  "description": "Orbit — a full-lifecycle skill pack for Claude Code: Understand → Build → Operate. 89 skills, each with a clear method: when to use it, inputs, procedure, output, checks and pitfalls. One pipeline with shared `.orbit/` artifacts, methods from 18 community packs and the ASD-STE100 standard rewritten with references and licences in every skill. Reverse engineering, spec-driven development on OpenSpec with a live project map, DevOps (Kubernetes/Helm/GitOps, CI, incidents), plain-language answers. Native Claude Code plugin; skills are portable to Codex, Qwen Code, GLM, DeepSeek and any SKILL.md loader.",
+  "author": {
+    "name": "Orbit contributors"
+  },
+  "homepage": "https://tojim00d.github.io/Orbit-skills/",
+  "repository": "https://github.com/tojim00d/Orbit-skills",
+  "license": "MIT",
+  "keywords": [
+    "sdd",
+    "openspec",
+    "project-map",
+    "reverse-engineering",
+    "devops",
+    "lifecycle",
+    "e2e"
+  ]
+}

@@ -1,0 +1,45 @@
+name: Bug report
+description: Something in a skill, script, the pack map or the install flow is broken.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report! For security problems please use
+        [private vulnerability reporting](https://github.com/tojim00d/Orbit-skills/security/advisories/new),
+        not a public issue.
+  - type: input
+    id: where
+    attributes:
+      label: Where does it break?
+      description: Skill, script, page or command.
+      placeholder: plugins/orbit/skills/run-spec-loop/SKILL.md
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you ran, what you expected, what you got.
+      placeholder: |
+        Command/prompt:
+        ...
+        Expected:
+        ...
+        Got:
+        ...
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Claude Code version, model, OS, agent version.
+      placeholder: "Claude Code 2.x · Opus 5.5 · macOS 15"
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Relevant output
+      description: Logs, error text or a snippet of the artifact (`.orbit/...`). Remove secrets and internal data.
+      render: shell

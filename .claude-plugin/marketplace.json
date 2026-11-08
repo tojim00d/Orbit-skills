@@ -1,0 +1,14 @@
+{
+  "name": "orbit",
+  "description": "Orbit — full-lifecycle skill pack: Understand → Build → Operate",
+  "owner": {
+    "name": "Orbit contributors"
+  },
+  "plugins": [
+    {
+      "name": "orbit",
+      "source": "./plugins/orbit",
+      "description": "Full lifecycle: Understand → Build → Operate. One pack, one pipeline, everything inside."
+    }
+  ]
+}

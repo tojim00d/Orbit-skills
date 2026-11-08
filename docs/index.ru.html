@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit — пак скиллов для Claude Code: 89 агентных скиллов на весь цикл разработки</title>
+<meta name="description" content="Orbit — открытый пак скиллов для Claude Code: 89 агентных скиллов в одном конвейере «Разобраться → Разработать → Сопровождать»: уточнение задач, карта кодовой базы, реверс-инжиниринг, разработка через спеку на OpenSpec, TDD, ревью кода и безопасности, Kubernetes/Helm/GitOps, карта проекта и инциденты. Скиллы — обычные папки SKILL.md, поэтому подходят и для Codex, Qwen Code, GLM, DeepSeek и других агентов.">
+<meta name="keywords" content="Claude Code скиллы, плагин Claude Code, агентные скиллы, SKILL.md, пак скиллов, AI-агент для кода, разработка через спеку, OpenSpec, TDD, ревью кода, ревью безопасности, реверс-инжиниринг, Kubernetes, Helm, GitOps, карта проекта, онбординг, инциденты, Codex, Qwen Code, GLM, DeepSeek">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://tojim00d.github.io/Orbit-skills/index.ru.html">
+<link rel="alternate" hreflang="en" href="https://tojim00d.github.io/Orbit-skills/">
+<link rel="alternate" hreflang="ru" href="https://tojim00d.github.io/Orbit-skills/index.ru.html">
+<link rel="alternate" hreflang="x-default" href="https://tojim00d.github.io/Orbit-skills/">
+<link rel="alternate" type="text/plain" title="llms.txt" href="llms.txt">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Orbit — пак скиллов для Claude Code на весь цикл разработки">
+<meta property="og:description" content="89 скиллов в одном конвейере: Разобраться → Разработать → Сопровождать. Спека, TDD, реверс, DevOps, интерактивная карта проекта. Нативный плагин Claude Code, скиллы переносимы.">
+<meta property="og:url" content="https://tojim00d.github.io/Orbit-skills/index.ru.html">
+<meta property="og:image" content="https://tojim00d.github.io/Orbit-skills/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Orbit — пак скиллов для Claude Code">
+<meta name="twitter:description" content="89 агентных скиллов в одном конвейере для Claude Code; работают и в Codex, Qwen Code, DeepSeek.">
+<meta name="twitter:image" content="https://tojim00d.github.io/Orbit-skills/og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "Orbit",
+  "alternateName": "Orbit — пак скиллов для Claude Code",
+  "description": "Открытый пак скиллов для Claude Code: 89 агентных скиллов в одном конвейере «Разобраться → Разработать → Сопровождать». Разработка через спеку на OpenSpec, реверс-инжиниринг, DevOps, интерактивная карта проекта. Скиллы — стандартные папки SKILL.md, переносимы в Codex, Qwen Code, GLM, DeepSeek и другие агенты.",
+  "codeRepository": "https://github.com/tojim00d/Orbit-skills",
+  "url": "https://tojim00d.github.io/Orbit-skills/index.ru.html",
+  "license": "https://opensource.org/licenses/MIT",
+  "programmingLanguage": ["Markdown", "Python", "JavaScript"],
+  "runtimePlatform": "Claude Code",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "macOS, Linux, Windows",
+  "keywords": "Claude Code, агентные скиллы, разработка через спеку, OpenSpec, реверс-инжиниринг, Kubernetes, карта проекта, Codex, Qwen Code, DeepSeek",
+  "version": "3.0.0",
+  "inLanguage": "ru",
+  "author": {"@type": "Organization", "name": "Orbit contributors"},
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "ru",
+  "mainEntity": [
+    {"@type": "Question", "name": "Что такое Orbit?", "acceptedAnswer": {"@type": "Answer", "text": "Orbit — бесплатный пак скиллов под лицензией MIT для Claude Code: 89 агентных скиллов, выстроенных в один конвейер «Разобраться → Разработать → Сопровождать», с общими артефактами в папке .orbit/."}},
+    {"@type": "Question", "name": "Как установить Orbit в Claude Code?", "acceptedAnswer": {"@type": "Answer", "text": "Выполни claude plugin marketplace add tojim00d/Orbit-skills, затем claude plugin install orbit@orbit, перезапусти Claude Code и набери /orbit:orbit. Из локальной копии — ./install.sh."}},
+    {"@type": "Question", "name": "Чем Orbit отличается от других паков скиллов?", "acceptedAnswer": {"@type": "Answer", "text": "Это не набор отдельных скиллов, а конвейер: у каждого шага есть номер, вход, выход и следующий шаг, все пишут в одну папку артефактов. Методы 18 паков сообщества и стандарта ASD-STE100 переписаны и доработаны, источники указаны в каждом скилле."}},
+    {"@type": "Question", "name": "Работает ли Orbit с Codex, Qwen Code, GLM, DeepSeek и другими агентами?", "acceptedAnswer": {"@type": "Answer", "text": "Orbit нативен для Claude Code, а его 89 скиллов — обычные папки SKILL.md. Codex, Qwen Code, Cursor и другие агенты читают их через AGENTS.md или ./install.sh --skills-dir; GLM, Qwen и DeepSeek работают через Claude Code-совместимый endpoint. Слэш-команды и субагенты есть только в Claude Code."}},
+    {"@type": "Question", "name": "Умеет ли Orbit реверс-инжиниринг?", "acceptedAnswer": {"@type": "Answer", "text": "Да, для своих или разрешённых целей: образы Docker/OCI, JAR/WAR, Helm-чарты, пакеты npm/pip/NuGet, бинарники, веб-приложения, восстановление OpenAPI из трафика и бизнес-правила из легаси."}},
+    {"@type": "Question", "name": "Orbit бесплатный?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Orbit под MIT; заимствованные вспомогательные инструменты сохраняют исходные лицензии — они перечислены в CREDITS.md."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Orbit — пак скиллов для Claude Code",
+  "url": "https://tojim00d.github.io/Orbit-skills/index.ru.html",
+  "inLanguage": ["ru", "en"],
+  "about": {"@type": "SoftwareSourceCode", "name": "Orbit", "codeRepository": "https://github.com/tojim00d/Orbit-skills"}
+}
+</script>
+<style>
+:root{--ink:#292929;--muted:#6b6760;--line:#dedcd7;--paper:#f7f6f3;--yellow:#ffe24b;--blue:#2f5da8;--green:#2e7d55;--gold:#8a6d00}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--paper)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}header{background:var(--ink);color:#fff;padding:56px 0 44px}
+h1{font-size:40px;margin:0 0 12px;line-height:1.15}h1 b{background:var(--yellow);color:var(--ink);padding:0 10px;border-radius:8px}
+.lead{color:#d9d6cf;font-size:19px;max-width:820px}.lead code{background:rgba(255,255,255,.14);color:#ffe24b;padding:0 4px}.btns{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;padding:10px 18px;border-radius:999px;background:var(--yellow);color:var(--ink);text-decoration:none;font-weight:700}
+.btn.o{background:transparent;color:#fff;border:1px solid #777}
+section{padding:36px 0;border-bottom:1px solid var(--line)}h2{font-size:26px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}code{background:#efeee9;padding:1px 6px;border-radius:6px;font-size:14px}
+pre{background:var(--ink);color:#f3f1ec;padding:14px 16px;border-radius:12px;overflow:auto}
+.flow{font-size:20px;font-weight:700}.p1{color:var(--blue)}.p2{color:var(--green)}.p3{color:var(--gold)}
+.faq p{margin:0 0 14px}.faq b{display:block}.table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.table th,.table td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.table th{background:#efeee9;font-size:14px}.table tr:last-child td{border-bottom:0}
+footer{padding:28px 0;color:var(--muted);font-size:14px}a{color:var(--blue)}
+.share{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.share a{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;text-decoration:none;font-weight:600;font-size:14px}.share a.star{background:var(--yellow);border-color:var(--yellow)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1><b>Orbit</b> — пак скиллов для Claude Code на весь цикл разработки</h1>
+<p class="lead">89 агентных скиллов в одном конвейере: уточнить задачу, разобраться в кодовой базе, написать спеку на OpenSpec, реализовать через тесты, проверить код и безопасность, выкатить в Kubernetes и держать живую карту проекта. Нативный плагин Claude Code; скиллы — обычные папки <code>SKILL.md</code>, поэтому подходят и Codex, Qwen Code, DeepSeek и другим агентам. Открытый код, MIT.</p>
+<div class="btns"><a class="btn" href="https://github.com/tojim00d/Orbit-skills">GitHub</a><a class="btn o" href="map.ru.html">Интерактивная карта пака</a><a class="btn o" href="https://github.com/tojim00d/Orbit-skills/blob/main/CATALOG.ru.md">Все 89 скиллов</a><a class="btn o" href="https://github.com/tojim00d/Orbit-skills">★ Звезда на GitHub</a><a class="btn o" href="index.html">English</a></div>
+</div></header>
+<main class="wrap">
+<section><p class="flow"><span class="p1">① Разобраться</span> → <span class="p2">② Разработать</span> → <span class="p3">③ Сопровождать</span> → ↺ новый виток</p>
+<p>У каждого скилла есть номер шага, вход, выход и следующий шаг. Все скиллы читают и пишут в одну папку артефактов <code>.orbit/</code>, поэтому работа переживает новые сессии и передачу. <code>/orbit:orbit &lt;задача&gt;</code> предлагает маршрут из 3–7 шагов и ведёт по нему.</p></section>
+<section><h2>Что умеет Orbit</h2><div class="grid">
+<div class="card"><h3>Разобраться в любой кодовой базе</h3>Граф знаний с доказательствами <code>file:line</code>, обзор кодовой базы, анализ влияния, гид онбординга.</div>
+<div class="card"><h3>Реверс-инжиниринг</h3>Образы Docker, JAR, Helm-чарты, npm/pip/NuGet, бинарники, веб-приложения; OpenAPI из трафика; бизнес-правила из легаси.</div>
+<div class="card"><h3>Разработка через спеку</h3>Требования, варианты дизайна, спеки на OpenSpec, планы из маленьких проверяемых шагов.</div>
+<div class="card"><h3>Реализация и доказательство</h3>Сначала тесты, делегирование субагентам, поиск корневой причины, ревью кода и безопасности, «готово» только с доказательством.</div>
+<div class="card"><h3>DevOps и эксплуатация</h3>Kubernetes, Helm, GitOps, разбор CI, ревью наблюдаемости, runbook, инциденты.</div>
+<div class="card"><h3>Карты и диаграммы</h3>Интерактивные карты проекта одним файлом, статичные SVG/PNG-диаграммы, схемы стека с логотипами.</div>
+</div></section>
+<section><h2>Установка</h2>
+<pre>claude plugin marketplace add tojim00d/Orbit-skills
+claude plugin install orbit@orbit
+# перезапусти Claude Code, затем:
+/orbit:orbit сделай фичу, которая экспортирует отчёты в CSV</pre>
+<p>Из локальной копии: <code>./install.sh</code>. Для другого агента: <code>./install.sh --skills-dir &lt;папка&gt;</code> и прочитай <a href="https://github.com/tojim00d/Orbit-skills/blob/main/AGENTS.md">AGENTS.md</a>.</p></section>
+<section><h2>Совместимость</h2>
+<table class="table"><tr><th>Что используешь</th><th>Как запускать Orbit</th></tr>
+<tr><td>Claude Code — с Claude или GLM / Z.ai, Qwen, DeepSeek через Anthropic-совместимый endpoint</td><td>Поставить плагин и пользоваться командами <code>/orbit:…</code></td></tr>
+<tr><td>OpenAI Codex, Qwen Code, Cursor и другие IDE-агенты</td><td>Прочитать <a href="https://github.com/tojim00d/Orbit-skills/blob/main/AGENTS.md">AGENTS.md</a>; скопировать скиллы через <code>./install.sh --skills-dir &lt;папка&gt;</code></td></tr>
+<tr><td>Любой загрузчик формата Agent Skills</td><td>Указать на <code>plugins/orbit/skills/</code></td></tr>
+</table>
+<p>Подробная таблица и заметки по моделям: <a href="https://github.com/tojim00d/Orbit-skills/blob/main/COMPATIBILITY.ru.md">COMPATIBILITY.ru.md</a>.</p></section>
+<section><h2>На плечах лучших методов сообщества</h2>
+<p>Скиллы Orbit — свои, но опираются на проверенные методы: superpowers, скиллы Matt Pocock, Skills by Anthropic, UI UX Pro Max, Replica, backend-skills, Ponytail, stack-diagram, code-mode, Understand Anything, Graft/Trail-code, GSD, REA и другие — переписаны, слиты и доработаны. В каждом скилле указаны источники. См. <a href="https://github.com/tojim00d/Orbit-skills/blob/main/CREDITS.md">кредиты</a>.</p></section>
+<section class="faq"><h2>Частые вопросы</h2>
+<p><b>Что такое Orbit?</b>Orbit — бесплатный пак скиллов под лицензией MIT для Claude Code: 89 агентных скиллов, выстроенных в один конвейер «Разобраться → Разработать → Сопровождать», с общими артефактами в папке <code>.orbit/</code>.</p>
+<p><b>Как установить Orbit в Claude Code?</b>Выполни <code>claude plugin marketplace add tojim00d/Orbit-skills</code>, затем <code>claude plugin install orbit@orbit</code>, перезапусти Claude Code и набери <code>/orbit:orbit</code>. Из локальной копии — <code>./install.sh</code>.</p>
+<p><b>Чем Orbit отличается от других паков скиллов?</b>Это не набор отдельных скиллов, а конвейер: у каждого шага есть номер, вход, выход и следующий шаг, все пишут в одну папку артефактов. Методы 18 паков сообщества и стандарта ASD-STE100 переписаны и доработаны, источники указаны в каждом скилле.</p>
+<p><b>Работает ли Orbit с Codex, Qwen Code, GLM, DeepSeek и другими агентами?</b>Orbit нативен для Claude Code, а его 89 скиллов — обычные папки <code>SKILL.md</code>. Codex, Qwen Code, Cursor и другие агенты читают их через <code>AGENTS.md</code> или <code>./install.sh --skills-dir</code>; GLM, Qwen и DeepSeek работают через Claude Code-совместимый endpoint. Слэш-команды и субагенты есть только в Claude Code.</p>
+<p><b>Умеет ли Orbit реверс-инжиниринг?</b>Да, для своих или разрешённых целей: образы Docker/OCI, JAR/WAR, Helm-чарты, пакеты npm/pip/NuGet, бинарники, веб-приложения, восстановление OpenAPI из трафика и бизнес-правила из легаси.</p>
+<p><b>Orbit бесплатный?</b>Да. Orbit под MIT; заимствованные вспомогательные инструменты сохраняют исходные лицензии — они перечислены в <a href="https://github.com/tojim00d/Orbit-skills/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</section>
+</main>
+<section><h2>Поделиться Orbit</h2>
+<p>Открытый код и бесплатно. Если экономит время — звезда и репост помогут другим инженерам найти пак.</p>
+<div class="share">
+<a class="star" href="https://github.com/tojim00d/Orbit-skills">★ Звезда на GitHub</a>
+<a href="https://twitter.com/intent/tweet?text=Orbit%20%E2%80%94%2089%20%D1%81%D0%BA%D0%B8%D0%BB%D0%BB%D0%BE%D0%B2%20%D0%B4%D0%BB%D1%8F%20Claude%20Code%20%D0%B2%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%BC%20%D0%BA%D0%BE%D0%BD%D0%B2%D0%B5%D0%B9%D0%B5%D1%80%D0%B5&url=https%3A%2F%2Ftojim00d.github.io%2FOrbit-skills%2Findex.ru.html">Поделиться в X</a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Ftojim00d.github.io%2FOrbit-skills%2F&title=Orbit%20%E2%80%94%2089%20%D1%81%D0%BA%D0%B8%D0%BB%D0%BB%D0%BE%D0%B2%20%D0%B4%D0%BB%D1%8F%20Claude%20Code">Reddit</a>
+<a href="https://t.me/share/url?url=https%3A%2F%2Ftojim00d.github.io%2FOrbit-skills%2Findex.ru.html&text=Orbit%20%E2%80%94%2089%20%D1%81%D0%BA%D0%B8%D0%BB%D0%BB%D0%BE%D0%B2%20%D0%B4%D0%BB%D1%8F%20Claude%20Code">Telegram</a>
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftojim00d.github.io%2FOrbit-skills%2F">LinkedIn</a>
+</div></section>
+<footer class="wrap">Orbit · MIT · <a href="https://github.com/tojim00d/Orbit-skills">tojim00d/Orbit-skills</a> · <a href="index.html">English</a> · Русский · <a href="map.ru.html">карта пака</a> · <a href="map.html">pack map</a></footer>
+</body></html>

@@ -1,0 +1,28 @@
+{
+  "title": "Orbit — полный цикл работы над проектом",
+  "subtitle": "Фазы слева направо, шаги сверху вниз. Каждый шаг выдаёт артефакт — вход следующего.",
+  "theme": "blueprint",
+  "phases": [
+    {"title": "Разобраться", "sub": "понять задачу и систему до кода", "steps": [
+      {"id": "intake", "title": "Приём задачи", "sub": "однозначные требования", "items": ["clarify-task", "shape-idea"]},
+      {"id": "recon", "title": "Разведка кода", "sub": "граф знаний, факты с file:line", "items": ["map-knowledge", "index-code", "survey-codebase"]},
+      {"id": "reverse", "title": "Реверс-инжиниринг", "sub": "артефакт, бинарник, API без документации", "items": ["reverse-app", "teardown-artifact"]},
+      {"id": "spec", "title": "Спецификация", "sub": "спека раньше кода", "items": ["write-spec", "run-spec-loop"]}]},
+    {"title": "Разработать", "sub": "малыми шагами, с тестами и проверкой", "steps": [
+      {"id": "plan", "title": "План", "sub": "задачи по 2–5 минут", "items": ["plan-steps", "slice-tickets"]},
+      {"id": "build", "title": "Реализация", "sub": "тест → код → рефакторинг", "items": ["test-first"]},
+      {"id": "check", "title": "Проверка", "sub": "доказать, что работает", "items": ["prove-done", "review-code"]},
+      {"id": "release", "title": "Выпуск", "sub": "MR и деплой", "items": ["open-mr", "ship-k8s"]}]},
+    {"title": "Сопровождать", "sub": "объяснить, запомнить, поддержать", "steps": [
+      {"id": "map", "title": "Карта проекта", "sub": "интерактивная или статичная", "items": ["project-map", "project-diagram"]},
+      {"id": "memory", "title": "Память и передача", "sub": "выученное рядом с кодом", "items": ["keep-learnings", "handoff-session"]},
+      {"id": "ops", "title": "Эксплуатация", "sub": "алерты, runbook, инциденты", "items": ["review-observability", "handle-incident"]}]}
+  ],
+  "edges": [
+    {"from": "intake", "to": "recon"}, {"from": "recon", "to": "reverse"}, {"from": "reverse", "to": "spec"},
+    {"from": "spec", "to": "plan", "label": "спека"}, {"from": "plan", "to": "build"}, {"from": "build", "to": "check"},
+    {"from": "check", "to": "release"}, {"from": "release", "to": "map", "label": "в карту"}, {"from": "map", "to": "memory"},
+    {"from": "memory", "to": "ops"}, {"from": "ops", "to": "intake", "label": "новый виток", "dashed": true}
+  ],
+  "footer": "Поверх всех фаз: простой язык ответов · работа в оговорённых границах · малые изменения"
+}

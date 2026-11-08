@@ -1,0 +1,46 @@
+name: Skill idea or improvement
+description: Propose a new skill, a better route, or an improvement to an existing skill.
+title: "[idea] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Orbit is one pipeline: a new skill must have a step number, an input, an output,
+        a next step and the `.orbit/` artifact it reads/writes (see
+        [ARTIFACTS.md](https://github.com/tojim00d/Orbit-skills/blob/main/ARTIFACTS.md)).
+        Read [CONTRIBUTING.md](https://github.com/tojim00d/Orbit-skills/blob/main/CONTRIBUTING.md) first.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of change?
+      options:
+        - New skill
+        - Improve an existing skill
+        - New route in `/orbit`
+        - Docs, map or examples
+        - Tooling or helper script
+    validations:
+      required: true
+  - type: input
+    id: skill
+    attributes:
+      label: Related skill(s), if any
+      placeholder: clarify-task, write-spec
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does it solve?
+      description: Describe the real workflow where the current pack leaves a gap.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed skill/route
+      description: Phase, input, output, next step, artifact; methods or sources to base it on.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Why not extend an existing skill or route?

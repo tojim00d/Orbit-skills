@@ -1,0 +1,28 @@
+{
+  "title": "Orbit — the full project lifecycle",
+  "subtitle": "Phases left to right, steps top to bottom. Each step produces an artifact — the next step's input.",
+  "theme": "blueprint",
+  "phases": [
+    {"title": "Understand", "sub": "the task and the system before code", "steps": [
+      {"id": "intake", "title": "Intake", "sub": "unambiguous requirements", "items": ["clarify-task", "shape-idea"]},
+      {"id": "recon", "title": "Code recon", "sub": "knowledge graph, facts with file:line", "items": ["map-knowledge", "index-code", "survey-codebase"]},
+      {"id": "reverse", "title": "Reverse engineering", "sub": "artifact, binary, API without docs", "items": ["reverse-app", "teardown-artifact"]},
+      {"id": "spec", "title": "Specification", "sub": "spec before code", "items": ["write-spec", "run-spec-loop"]}]},
+    {"title": "Build", "sub": "small steps with tests and checks", "steps": [
+      {"id": "plan", "title": "Plan", "sub": "tasks of 2–5 minutes", "items": ["plan-steps", "slice-tickets"]},
+      {"id": "build", "title": "Implementation", "sub": "test → code → refactor", "items": ["test-first"]},
+      {"id": "check", "title": "Verification", "sub": "prove it works", "items": ["prove-done", "review-code"]},
+      {"id": "release", "title": "Release", "sub": "MR and deploy", "items": ["open-mr", "ship-k8s"]}]},
+    {"title": "Operate", "sub": "explain, remember, support", "steps": [
+      {"id": "map", "title": "Project map", "sub": "interactive or static", "items": ["project-map", "project-diagram"]},
+      {"id": "memory", "title": "Memory & hand-over", "sub": "learnings next to code", "items": ["keep-learnings", "handoff-session"]},
+      {"id": "ops", "title": "Operations", "sub": "alerts, runbooks, incidents", "items": ["review-observability", "handle-incident"]}]}
+  ],
+  "edges": [
+    {"from": "intake", "to": "recon"}, {"from": "recon", "to": "reverse"}, {"from": "reverse", "to": "spec"},
+    {"from": "spec", "to": "plan", "label": "spec"}, {"from": "plan", "to": "build"}, {"from": "build", "to": "check"},
+    {"from": "check", "to": "release"}, {"from": "release", "to": "map", "label": "to map"}, {"from": "map", "to": "memory"},
+    {"from": "memory", "to": "ops"}, {"from": "ops", "to": "intake", "label": "next loop", "dashed": true}
+  ],
+  "footer": "Across all phases: plain-language answers · work within agreed scope · small changes"
+}

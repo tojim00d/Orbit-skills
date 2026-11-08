@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project map</title>
+<style>
+:root{--ink:#292929;--muted:#6b6760;--line:#dedcd7;--paper:#f7f6f3;--card:#fff;--yellow:#ffe24b;--y-soft:#fff5d3;--green:#2e7d55;--g-soft:#e9f6ef;--blue:#2f5da8;--b-soft:#e8effa;--red:#b4452f;--r-soft:#fbece8;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--paper)}
+*{box-sizing:border-box}body{margin:0;line-height:1.45}a{color:var(--blue)}
+.wrap{max-width:1440px;margin:0 auto;padding:0 32px}
+header.hero{background:var(--ink);color:#fff;padding:44px 0 36px}
+.hero .row{display:flex;align-items:center;gap:14px;margin-bottom:18px}.hero svg{width:48px;height:48px}
+.hero h1{font-size:clamp(30px,4vw,46px);margin:0 0 8px;letter-spacing:-.02em}
+.hero p{margin:0;color:#c9c6bf;max-width:900px}.hero b{color:var(--yellow);font-weight:600}
+nav.toc{position:sticky;top:0;z-index:30;background:rgba(247,246,243,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.toc .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:9px;padding-bottom:9px;scrollbar-width:none}
+nav.toc a{white-space:nowrap;text-decoration:none;font-size:14px;padding:6px 12px;border-radius:999px;color:var(--muted)}nav.toc a:hover{background:var(--y-soft);color:var(--ink)}
+section{padding:48px 0 8px;scroll-margin-top:52px}
+.kicker{text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:700;color:var(--muted);margin:0 0 6px}
+h2{font-size:clamp(24px,2.6vw,32px);margin:0 0 8px}.intro{color:var(--muted);max-width:900px;margin:0 0 24px}
+.map-shell{position:relative;overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px}
+.map{position:relative;margin-right:64px;display:grid;grid-template-columns:200px 1.15fr 1fr 1.05fr;gap:64px;align-items:start;z-index:1}
+.group{border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.group>h3{margin:0;font-size:15px}.group>.sub{margin:-8px 0 2px;font-size:12px;color:var(--muted)}
+.g-user{background:#f2f1ee}.g-cnst{background:var(--y-soft)}.g-svc{background:var(--b-soft)}.g-stand{background:var(--g-soft)}
+.node{background:#fff;border:1px solid transparent;border-radius:12px;padding:10px 12px;cursor:pointer;text-align:left;color:inherit;width:100%;transition:box-shadow .12s,border-color .12s}
+.node:hover,.node:focus-visible,.node.hot{border-color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.08);outline:none}
+.node strong{display:block;font-size:14px}.node small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.chip{font-size:11px;padding:3px 8px;border-radius:999px;background:var(--paper);border:1px solid var(--line);cursor:pointer;font-family:inherit;color:inherit}
+.chip:hover,.chip:focus-visible{background:var(--yellow);border-color:var(--yellow);outline:none}
+svg.wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:visible}
+svg.wires path{fill:none;stroke-width:1.7;opacity:.75;transition:opacity .12s,stroke-width .12s}
+svg.wires path.hot{stroke-width:3;opacity:1}
+svg.wires path.k-deploy{stroke:#7aa36f}svg.wires path.k-ctrl{stroke:#c9a92b}svg.wires path.k-sec{stroke:#a57fd0}svg.wires path.k-test{stroke:#6f8fc9}
+.badges{position:absolute;inset:0;pointer-events:none;z-index:3}
+.badge{position:absolute;pointer-events:auto;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;border:2px solid #fff;cursor:pointer;font-family:inherit;padding:0}
+.badge:hover,.badge:focus-visible,.badge.hot{background:var(--yellow);color:var(--ink);outline:none}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:18px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:22px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.edges{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px;margin-top:20px}
+.edge-item{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.edge-item:hover,.edge-item:focus-visible,.edge-item.hot{border-color:var(--ink);outline:none}
+.edge-item .n{width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}
+.edge-item b{font-size:13px;display:block}.edge-item span{font-size:12px;color:var(--muted)}
+.grid{display:grid;gap:16px}.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;min-width:0}
+.card h3{margin:0 0 6px;font-size:16px}.card p,.card li{color:var(--muted);font-size:14px;margin:0}.card ul{margin:6px 0 0;padding-left:18px}
+.card .more{margin-top:10px;display:inline-block;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;border:0;background:none;padding:0;font-family:inherit}
+.card.clickable{cursor:pointer}.card.clickable:hover{border-color:var(--ink)}
+.flow{display:grid;gap:8px;margin:8px 0 0;padding:0;list-style:none}
+.flow li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;font-size:14px;color:var(--ink)}
+.flow .num{width:26px;height:26px;border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-size:12px;font-weight:700}
+.flow li small{display:block;color:var(--muted);font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f2f1ee;font-weight:600}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:var(--paper);padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+footer{padding:56px 0 64px;color:var(--muted);font-size:13px}
+dialog{border:0;border-radius:20px;padding:0;width:min(760px,94vw);max-height:88vh;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+dialog .head{position:sticky;top:0;background:#fff;display:flex;justify-content:space-between;gap:16px;padding:22px 26px 10px;border-bottom:1px solid var(--line)}
+dialog h3{margin:0;font-size:21px}dialog .route{font-size:13px;color:var(--muted);margin-top:4px}
+dialog .body{padding:16px 26px 26px;color:#3d3a35;font-size:15px}
+dialog .body h4{margin:16px 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+dialog .body ul{margin:0;padding-left:20px}dialog .body li{margin:5px 0}
+dialog .close{border:0;background:var(--paper);border-radius:999px;width:36px;height:36px;font-size:20px;cursor:pointer;flex:none}
+.links{display:grid;gap:6px}.links a{font-size:13px;overflow-wrap:anywhere}
+.links .repo{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-right:6px}
+@media (max-width:1180px){.c3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:680px){.wrap{padding:0 16px}.c2,.c3{grid-template-columns:1fr}.map-shell{padding:14px}}
+.tabs{display:inline-flex;gap:4px;padding:4px;background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:16px}
+.tabs button{border:0;background:transparent;border-radius:9px;padding:8px 16px;font:inherit;font-size:14px;cursor:pointer;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
+.schema-shell{background:#fff;border:1px solid var(--line);border-radius:22px;padding:12px;overflow-x:auto}
+svg.schema{display:block;width:100%;min-width:1100px;height:auto;font-family:inherit}
+.s-band{font-size:22px;font-weight:700;fill:#292929}.s-band-sub{font-size:14px;fill:#6b6760}
+.s-node rect{fill:#fff;stroke:#d6d3cc;stroke-width:1.5}.s-node{cursor:pointer}
+.s-node:hover rect,.s-node:focus-visible rect{stroke:#292929;stroke-width:2.5}.s-node:focus{outline:none}
+.s-title{font-size:19px;font-weight:700;fill:#292929}.s-sub{font-size:14px;fill:#6b6760}
+.s-chip rect{fill:#f7f6f3;stroke:#dedcd7}.s-chip text{font-size:13px;fill:#292929}.s-chip{cursor:pointer}
+.s-chip:hover rect,.s-chip:focus-visible rect{fill:#ffe24b;stroke:#ffe24b}.s-chip:focus{outline:none}
+.s-inner rect{fill:#e9f6ef;stroke:#b9dcc6}.s-inner text{font-size:14px;font-weight:600;fill:#2e7d55}.s-inner{cursor:pointer}
+.s-inner:hover rect,.s-inner:focus-visible rect{stroke:#2e7d55;stroke-width:2}.s-inner:focus{outline:none}
+.s-libs rect{fill:#fff;stroke:#d8c46a;stroke-dasharray:5 4}.s-libs text{font-size:13px;fill:#6b5a12}.s-libs{cursor:pointer}
+.s-libs:hover rect{stroke:#292929}
+.s-line{fill:none;stroke-width:2.6}.s-hit{fill:none;stroke:transparent;stroke-width:16}.s-arrow{cursor:pointer}
+.s-arrow:hover .s-line,.s-arrow:focus-visible .s-line{stroke-width:4.5}.s-arrow:focus{outline:none}
+.s-label{font-size:14px;font-weight:600;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+.s-badge{cursor:pointer}.s-badge circle{stroke:#fff;stroke-width:2.5}.s-badge text{font-size:12px;font-weight:700;fill:#fff;pointer-events:none}
+.s-badge:hover circle,.s-badge.hot circle{stroke:#292929}.s-label{cursor:pointer;font-size:13px}
+.s-arrow.hot .s-line{stroke-width:4.5}.s-node.hot>rect{stroke:#292929;stroke-width:2.5}
+.s-band{font-size:20px}.s-band-sub{font-size:13px}.s-title{font-size:18px}
+svg.wires path{fill:none}svg.schema text{user-select:none}
+.s-gate .s-line{stroke-width:4}.s-label.s-gate{font-weight:800}
+.edge-item.gate{border-color:#c9c5bc;background:#fcfbf8}.gate-tag{display:inline-block;font-style:normal;font-size:11px;font-weight:700;color:var(--ink);background:var(--yellow);border-radius:6px;padding:1px 6px;margin-bottom:3px}
+.wires path.gate{stroke-width:3.2}.badge.gate{box-shadow:0 0 0 2px var(--ink)}
+dialog::backdrop{background:rgba(41,41,41,.45)}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="row"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#ffe24b"><polygon points="32,19 33.81,26.84 39.78,22.81 36.37,29.86 43,32 36.37,34.14 39.78,41.19 33.81,37.16 32,45 30.19,37.16 24.22,41.19 27.63,34.14 21,32 27.63,29.86 24.22,22.81 30.19,26.84"/></g><g fill="none" stroke="#ffe24b" stroke-width="1.5" stroke-linecap="round"><path d="M32 13V3M41.5 15.5l5-8.6M48.5 22.5l8.6-5M51 32h10M48.5 41.5l8.6 5M41.5 48.5l5 8.6M32 51v10M22.5 48.5l-5 8.6M15.5 41.5l-8.6 5M13 32H3M15.5 22.5l-8.6-5M22.5 15.5l-5-8.6"/></g></svg>
+  <span class="kicker" id="hero-kicker" style="color:#9b9480;margin:0"></span></div>
+  <h1 id="hero-title"></h1>
+  <p id="hero-lead"></p>
+</div></header>
+<nav class="toc"><div class="wrap" id="toc"></div></nav>
+<main class="wrap" id="content"></main>
+<footer class="wrap" id="page-footer"></footer>
+<dialog id="dlg" aria-labelledby="dlg-title"><div class="head"><div><h3 id="dlg-title"></h3><div class="route" id="dlg-route"></div></div><button class="close" type="button" aria-label="Close">×</button></div><div class="body" id="dlg-body"></div></dialog>
+<script>
+// Example: a map of the Orbit pack, built with the project-map skill (English UI).
+// Russian version — ../example-ru/. Per project only this file is edited: META, N, CHIP, E, KIND, LAYOUT, PAGES.
+const GL = "https://github.com";
+const REPO = { orbit: ["tojim00d/Orbit-skills", "main"] };
+const R = "orbit";
+const SK = n => [R, `plugins/orbit/skills/${n}/SKILL.md`];
+
+// Blocks: [title, caption, "what it is", [how it works...], [[repo,"path"]...], [[chipKey,"label"]...]]
+const N = {
+  orbit: ["orbit", "entry · picks a route", "Pack entry point: sizes the task and proposes a 3–7 step route.",
+    ["A small task is done at once, without the pipeline.", "A big one gets a route of skills in order, each step with its own artifact.", "Command <code>/orbit:orbit &lt;task&gt;</code>."],
+    [SK("orbit")]],
+
+  intake: ["Intake", "clarify what's needed", "Turn a fuzzy request into unambiguous requirements.",
+    ["Sharp questions one at a time until the goal is clear.", "Business request → structured requirements.", "Idea → agreed design before code."],
+    [SK("clarify-task"), SK("shape-idea")], [["grill", "clarify-task"], ["req", "capture-requirements"], ["brain", "shape-idea"]]],
+  recon: ["Code recon", "facts from code", "Understand the system from its code, not guesses.",
+    ["Knowledge graph: modules and links with <code>file:line</code> evidence.", "Working index: index first, then targeted reading.", "Codebase state: stack, conventions, concerns."],
+    [SK("map-knowledge")], [["und", "map-knowledge"], ["graft", "index-code"], ["mapc", "survey-codebase"]]],
+  reverse: ["Reverse engineering", "when there are no sources or docs", "Take apart an artifact, binary, web app or API.",
+    ["Scope line: whose target and why.", "Findings log: observation / inference / unknown.", "Static before dynamic; run only in isolation."],
+    [SK("reverse-app")], [["re", "reverse-app"], ["art", "teardown-artifact"], ["api", "recover-api-spec"]]],
+  spec: ["Specification", "spec before code", "Agree on what changes before writing code.",
+    ["Conversation → spec.", "OpenSpec: proposal → requirement delta → validate.", "Risks and threats become requirements."],
+    [SK("run-spec-loop")], [["tospec", "write-spec"], ["sdd", "run-spec-loop"]]],
+
+  plan: ["Plan", "small tasks", "A detailed implementation plan and slice tickets.", ["Tasks of 2–5 minutes with files and check commands.", "Tickets are vertical slices with dependencies."],
+    [SK("plan-steps")], [["wp", "plan-steps"], ["tt", "slice-tickets"]]],
+  build: ["Implementation", "test → code → refactor", "Code in small steps with tests.", ["Failing test first.", "Each task to a fresh subagent, with review between tasks."],
+    [SK("test-first")], [["tdd", "test-first"], ["sdd2", "delegate-tasks"]]],
+  check: ["Verification", "prove it works", "Reviews and checks before the word \"done\".", ["Run the checks and show the output.", "Review code, security and unnecessary complexity."],
+    [SK("prove-done")], [["ver", "prove-done"], ["cr", "review-code"], ["sec", "review-security"]]],
+  release: ["Release", "MR and deploy", "Finish the branch, open the MR, ship.", ["MR with a description and verification.", "Kubernetes/Helm: render and diff, deploy through git."],
+    [SK("open-mr")], [["pr", "open-mr"], ["k8s", "ship-k8s"]]],
+
+  map: ["Project map", "interactive schema", "A map like this one: blocks, links, step numbers, code links.", ["Updated in the same change as the code.", "Command <code>/orbit:map</code>."],
+    [SK("project-map")], [["pm", "project-map"], ["sd", "draw-stack"]]],
+  memory: ["Memory & hand-over", "knowledge across sessions", "Learnings next to code, hand-over, retros.", ["Bug causes and rejected approaches — in <code>.orbit/learnings/</code>.", "HANDOFF.md for a fresh session."],
+    [SK("keep-learnings")], [["trail", "keep-learnings"], ["ho", "handoff-session"]]],
+  ops: ["Operations", "see it and fix it", "Observability, runbooks, incidents.", ["Symptom alerts, each with a runbook.", "Incident: mitigate → timeline → postmortem."],
+    [SK("handle-incident")], [["mon", "review-observability"], ["inc", "handle-incident"]]],
+};
+
+const CHIP = {};
+for (const [, node] of Object.entries(N))
+  for (const [key, label] of node[5] || []) CHIP[key] = [label, [`Skill <code>${label}</code>. Open the file to read the method.`], [SK(label)]];
+
+// Links: [from, to, kind, "title", "summary", [how it works...], [[repo,"path"]...]]
+// Step numbers are set by the engine in reading order: entry → phase ① → transition → phase ② → …
+const E = [
+  ["orbit", "intake", "r", "Start", "a route for the task", ["A big task starts with clarification."], [SK("orbit")]],
+  ["intake", "recon", "r", "Requirements → recon", "what the code has", ["Check requirements against the real code."], []],
+  ["recon", "reverse", "r", "No sources → reverse", "artifact, binary, API", ["When there's no code or docs."], [SK("reverse-app")]],
+  ["recon", "spec", "r", "Facts → spec", "agree before code", ["The proposal is born from facts."], [SK("write-spec")]],
+  ["spec", "plan", "l", "Spec → plan", "spec before code", ["Build starts only after an agreed spec."], [SK("plan-steps")]],
+  ["plan", "build", "l", "Plan → code", "task by task", [], []],
+  ["build", "check", "l", "Code → verification", "evidence", [], []],
+  ["check", "release", "l", "Verification → release", "MR and deploy", [], []],
+  ["release", "map", "m", "Release → map", "recorded in the map", ["The map is updated in the same change."], [SK("project-map")]],
+  ["map", "memory", "m", "Map → memory", "learnings", [], []],
+  ["memory", "ops", "m", "Memory → operations", "runbooks and alerts", [], []],
+  ["ops", "intake", "m", "Next loop", "incident or idea → new task", ["The orbit closes: operations produce the next task."], []],
+];
+
+const KIND = { r: ["#6f8fc9", "① Understand"], l: ["#7aa36f", "② Build"], m: ["#c9a92b", "③ Operate"] };
+
+const META = {
+  lang: "en",
+  title: "Orbit — the full project lifecycle",
+  kicker: "Orbit · example map",
+  mapTitle: "Phases and steps",
+  mapIntro: "Phases top to bottom, steps left to right. The number on an arrow is the reading order. A thick ringed arrow is a transition to the next phase. Click a block, chip or arrow.",
+  footer: "Built with the project-map skill.",
+};
+
+const LAYOUT = {
+  top: ["orbit"],
+  bands: [
+    ["Understand", "the task and the system", ["intake", "recon", "reverse", "spec"]],
+    ["Build", "plan → code → verify → release", ["plan", "build", "check", "release"]],
+    ["Operate", "map, memory, operations", ["map", "memory", "ops"]],
+  ],
+  labels: { 0: "start", 4: "spec before code", 8: "into the map", 11: "next loop" },
+  footer: "Across all phases: plain-language answers, work within agreed scope, small changes",
+};
+
+const PAGES = () => [
+  ["use", "How to use", "Commands", "",
+    `<div class="table-scroll"><table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
+      <tr><td><code>/orbit:orbit &lt;task&gt;</code></td><td>Pick a route and walk it</td></tr>
+      <tr><td><code>/orbit:understand</code></td><td>Understand a repository</td></tr>
+      <tr><td><code>/orbit:map</code></td><td>Build a project map</td></tr>
+      <tr><td><code>/orbit:reverse</code></td><td>Take apart an app or artifact</td></tr>
+    </tbody></table></div>`],
+];
+
+</script>
+<script>
+// Project schema with auto-layout. No hand-set coordinates:
+// block sizes, wrapping, rows, bands and arrow routes are computed from N, E and LAYOUT.
+// Guarantees: blocks never overlap, text stays inside its box, arrows never cross blocks,
+// every arrow has its own lane in a gap, step numbers never collide.
+
+// UI language: META.lang = "en" | "ru" (default "en"). Data texts are written by the author in the same language.
+const LANG = (typeof META === "object" && META && META.lang === "ru") ? "ru" : "en";
+const I18N = {
+  en: { schema: "Schema", block: "Block view", other: "Other", components: "Components", entry: "Entry",
+        transition: "transition", back: "return", how: "How it works", links: "Links", where: "Where in code", close: "Close",
+        ariaSchema: "Project schema", title: "Project map", kicker: "project map", mapKicker: "Big picture", mapTitle: "Components and links",
+        lead: "Click <b>any block, chip or link number</b> to open details and links to files. Hover a block to highlight its links.",
+        mapIntro: "Top to bottom by phases or layers. Arrow color — link kind; number — step in reading order. Click a block, chip or arrow for details and code." },
+  ru: { schema: "Схема", block: "Блок-схема", other: "Прочее", components: "Компоненты", entry: "Вход",
+        transition: "переход", back: "возврат", how: "Как устроено", links: "Связи", where: "Где в коде", close: "Закрыть",
+        ariaSchema: "Схема проекта", title: "Карта проекта", kicker: "карта проекта", mapKicker: "Большая схема", mapTitle: "Компоненты и связи",
+        lead: "Нажмите на <b>любой блок, чип или номер связи</b>: откроются подробности и ссылки на файлы. Наведите на блок, чтобы подсветить его связи.",
+        mapIntro: "Сверху вниз по фазам или слоям. Цвет стрелки — тип связи, номер — шаг по ходу чтения. Нажмите на блок, чип или стрелку, чтобы прочитать подробности и перейти к коду." },
+};
+const T = I18N[LANG];
+
+const SCHEMA_OPT = { W: 1200, gutter: 250, right: 36, gapX: 44, padY: 28, rowGap: 40, bandGap: 24, lane: 22, minW: 200, maxW: 380, minH: 84 };
+const BAND_COLORS = ["#e8effa", "#e9f6ef", "#fff5d3", "#f3ecfb", "#fbece8", "#e6f3f3"];
+
+const CIRCLED = n => n >= 1 && n <= 20 ? String.fromCharCode(0x245F + n) : `${n}.`;
+
+// Block groups: top row (entry) + bands. Blocks not named in LAYOUT go to an "Other" band.
+function schemaGroups() {
+  const L = typeof LAYOUT === "object" && LAYOUT ? LAYOUT : {};
+  const used = new Set();
+  const take = ids => (ids || []).filter(id => {
+    if (!(id in N)) { console.warn("LAYOUT: no such block in N:", id); return false; }
+    if (used.has(id)) return false;
+    used.add(id); return true;
+  });
+  const top = take(L.top);
+  const numbered = !L.options || L.options.numberBands !== false;
+  const bands = (L.bands || []).map(([title, sub, ids, color], i) => ({
+    num: i + 1, title: numbered && !/^[\d\u2460-\u2473]/.test(String(title)) ? `${CIRCLED(i + 1)} ${title}` : title,
+    sub: sub || "", ids: take(ids), color: color || BAND_COLORS[i % BAND_COLORS.length] }));
+  const rest = Object.keys(N).filter(id => !used.has(id));
+  if (rest.length) bands.push({ title: bands.length ? T.other : T.components, sub: "", ids: rest, color: BAND_COLORS[bands.length % BAND_COLORS.length] });
+  return { top: { title: L.topTitle || T.entry, sub: L.topSub || "", ids: top, color: "#f2f1ee" }, bands: bands.filter(b => b.ids.length), labels: L.labels || {}, footer: L.footer, options: L.options || {} };
+}
+
+// Step order (link numbers) follows reading order, not the order in E:
+// entry → links inside phase ① → transition ①→② → links inside ② → … ; backward links at the end of their phase.
+// LAYOUT.steps = [E indices] sets a manual order (remaining links follow automatically).
+// LAYOUT.options.numbering = "data" — legacy behavior (number = position in E).
+let _steps = null;
+function schemaSteps() {
+  if (_steps) return _steps;
+  const G = schemaGroups(), pos = {};
+  G.top.ids.forEach((id, k) => { pos[id] = [-1, k]; });
+  G.bands.forEach((b, gi) => b.ids.forEach((id, k) => { pos[id] = [gi, k]; }));
+  const key = i => {
+    const [f, t] = E[i], a = pos[f], b = pos[t];
+    if (!a || !b) return [1e9, 9, i, 0];
+    const kind = a[0] === b[0] ? 0 : b[0] > a[0] ? 1 : 2;
+    return [a[0], kind, a[1], b[1]];
+  };
+  const cmp = (x, y) => { const p = key(x), q = key(y); for (let k = 0; k < 4; k++) if (p[k] !== q[k]) return p[k] - q[k]; return x - y; };
+  const all = E.map((_, i) => i);
+  const L = typeof LAYOUT === "object" && LAYOUT ? LAYOUT : {};
+  let order;
+  if ((L.options || {}).numbering === "data") order = all;
+  else {
+    const manual = (L.steps || []).filter(i => Number.isInteger(i) && i >= 0 && i < E.length);
+    order = manual.concat(all.filter(i => !manual.includes(i)).sort(cmp));
+  }
+  const num = {}, gate = {}, back = {};
+  order.forEach((i, k) => { num[i] = k + 1; });
+  const label = gi => gi < 0 ? String(G.top.title || T.entry).toLowerCase() : CIRCLED(gi + 1);
+  all.forEach(i => {
+    const a = pos[E[i][0]], b = pos[E[i][1]];
+    if (a && b && a[0] !== b[0]) { back[i] = b[0] < a[0]; gate[i] = `${back[i] ? T.back : T.transition} ${label(a[0])} → ${label(b[0])}`; }
+  });
+  return (_steps = { order, num, gate, back });
+}
+const stepNo = i => schemaSteps().num[i] ?? i + 1;
+
+function schemaLayout() {
+  const G = schemaGroups();
+  const O = Object.assign({}, SCHEMA_OPT, G.options);
+  const font = getComputedStyle(document.body).fontFamily;
+  const ctx = document.createElement("canvas").getContext("2d");
+  const tw = (t, size, weight = 400) => { ctx.font = `${weight} ${size}px ${font}`; return ctx.measureText(t).width; };
+  const plain = s => String(s ?? "").replace(/<[^>]*>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").trim();
+  const wrap = (s, size, weight, max) => {
+    const lines = []; let cur = "";
+    for (const w of plain(s).split(/\s+/).filter(Boolean)) {
+      const t = cur ? cur + " " + w : w;
+      if (!cur || tw(t, size, weight) <= max) cur = t; else { lines.push(cur); cur = w; }
+    }
+    if (cur) lines.push(cur);
+    return lines.flatMap(l => { // overlong word: split at CamelCase, dots, slashes first; then by characters
+      if (tw(l, size, weight) <= max) return [l];
+      const parts = l.split(/(?<=[a-zа-я0-9])(?=[A-ZА-Я])|(?<=[._\/-])/);
+      if (parts.length > 1 && parts.every(p => tw(p, size, weight) <= max)) {
+        const out = []; let c = "";
+        for (const p of parts) { if (c && tw(c + p, size, weight) > max) { out.push(c); c = p; } else c += p; }
+        return out.concat(c);
+      }
+      const out = []; let c = "";
+      for (const ch of l) { if (c && tw(c + ch, size, weight) > max) { out.push(c); c = ch; } else c += ch; }
+      return out.concat(c);
+    });
+  };
+  const clip = (s, size, weight, max) => { if (tw(s, size, weight) <= max) return s; while (s.length > 1 && tw(s + "…", size, weight) > max) s = s.slice(0, -1); return s + "…"; };
+
+  const x0 = O.gutter, x1 = O.W - O.right, avail = x1 - x0;
+  const B = {};
+  const natural = id => {
+    const [title, sub, , , , chips] = N[id];
+    const chipMax = Math.max(0, ...(chips || []).map(([, l]) => tw(plain(l), 13) + 24));
+    const w = Math.max(tw(plain(title), 18, 700), Math.min(tw(plain(sub), 14), O.maxW - 36), Math.min(chipMax, O.maxW - 36)) + 36;
+    return Math.min(O.maxW, Math.max(O.minW, Math.ceil(w)));
+  };
+  const fit = b => {
+    const [title, sub, , , , chips] = N[b.id], inner = b.w - 36;
+    b.tl = wrap(title, 18, 700, inner);
+    b.sl = sub ? wrap(sub, 14, 400, inner) : [];
+    let cx = 0, cy = 0;
+    b.cp = (chips || []).map(([key, label]) => {
+      const text = clip(plain(label), 13, 400, inner - 24), cw = tw(text, 13) + 24;
+      if (cx && cx + cw > inner) { cx = 0; cy += 34; }
+      const c = { key, text, dx: cx, dy: cy, w: cw }; cx += cw + 8; return c;
+    });
+    b.textH = 20 + b.tl.length * 23 + b.sl.length * 19 + 4;
+    b.h = Math.max(O.minH, b.textH + (b.cp.length ? 10 + cy + 26 : 0) + 18);
+  };
+
+  // 1. Rows. The top row is centered. A one-row band stretches to full width,
+  //    a multi-row band becomes an even grid of columns.
+  const rows = [];
+  const place = (ids, band) => {
+    const nat = ids.map(natural);
+    const sum = nat.reduce((s, w) => s + w, 0) + O.gapX * (ids.length - 1);
+    if (!band) {
+      let row = [], used = 0;
+      ids.forEach((id, k) => {
+        if (row.length && used + O.gapX + nat[k] > avail) { rows.push({ band, items: row }); row = []; used = 0; }
+        row.push(B[id] = { id, w: nat[k] }); used += (row.length > 1 ? O.gapX : 0) + nat[k];
+      });
+      if (row.length) rows.push({ band, items: row });
+      return;
+    }
+    if (sum <= avail) {
+      const extra = ids.length > 1 ? (avail - sum) / ids.length : Math.max(0, Math.min(avail, 440) - nat[0]);
+      rows.push({ band, items: ids.map((id, k) => (B[id] = { id, w: nat[k] + extra })) });
+      return;
+    }
+    const med = [...nat].sort((p, q) => p - q)[Math.floor(nat.length / 2)]; // by median: a long name wraps instead of stretching the grid
+    const cols = Math.max(1, Math.min(ids.length, 4, Math.floor((avail + O.gapX) / (med + O.gapX))));
+    const w = (avail - O.gapX * (cols - 1)) / cols;
+    for (let k = 0; k < ids.length; k += cols) rows.push({ band, items: ids.slice(k, k + cols).map(id => (B[id] = { id, w })) });
+  };
+  if (G.top.ids.length) place(G.top.ids, null);
+  G.bands.forEach(b => place(b.ids, b));
+  rows.forEach((r, ri) => {
+    const sum = r.items.reduce((s, b) => s + b.w, 0) + O.gapX * (r.items.length - 1);
+    let x = r.band ? x0 : x0 + (avail - sum) / 2;
+    r.items.forEach((b, k) => { b.x = x; b.row = ri; b.k = k; x += b.w + O.gapX; fit(b); });
+    r.h = Math.max(...r.items.map(b => b.h));
+    r.items.forEach(b => { b.h = r.h; });
+  });
+
+  // 2. Arrow routes in X. Gap g lies above row g; gap rows.length is below the last row.
+  const R = rows.length;
+  const lanes = Array.from({ length: R + 1 }, () => []);
+  const ports = {}, pairCount = {};
+  let corridor = 0;
+  const routes = E.map(([f, t], i) => {
+    const a = B[f], b = B[t];
+    if (!a || !b) { console.warn("E: no block for link", i + 1, f, "→", t); return null; }
+    if (f === t) return null;
+    if (a.row === b.row && Math.abs(a.k - b.k) === 1) {
+      const key = [f, t].sort().join("|");
+      return { i, type: "side", a, b, n: (pairCount[key] = (pairCount[key] || 0) + 1) - 1, key };
+    }
+    const r = { i, a, b };
+    if (b.row > a.row) Object.assign(r, { sa: "b", sb: "t", g1: a.row + 1, g2: b.row });
+    else if (b.row < a.row) Object.assign(r, { sa: "t", sb: "b", g1: a.row, g2: b.row + 1 });
+    else Object.assign(r, { sa: "b", sb: "b", g1: a.row + 1, g2: a.row + 1 });
+    (ports[f + "|" + r.sa] ??= []).push([r, "a"]);
+    (ports[t + "|" + r.sb] ??= []).push([r, "b"]);
+    return r;
+  });
+  for (const [key, list] of Object.entries(ports)) {
+    const box = B[key.split("|")[0]];
+    const other = ([r, end]) => { const o = end === "a" ? r.b : r.a; return o.x + o.w / 2; };
+    list.sort((p, q) => other(p) - other(q));
+    list.forEach(([r, end], k) => { r[end + "x"] = box.x + box.w * (k + 1) / (list.length + 1); });
+  }
+  // If an end is the only one on its block side, align it with the other end so the arrow runs straight.
+  const solo = (id, side) => ports[id + "|" + side].length === 1;
+  const inside = (x, b) => x >= b.x + 24 && x <= b.x + b.w - 24;
+  routes.forEach(r => {
+    if (!r || r.type === "side" || r.a.row === r.b.row || Math.abs(r.a.row - r.b.row) !== 1) return;
+    const sa = solo(r.a.id, r.sa), sb = solo(r.b.id, r.sb);
+    if (sb && inside(r.ax, r.b)) r.bx = r.ax;
+    else if (sa && inside(r.bx, r.a)) r.ax = r.bx;
+    else if (sa && sb) { const lo = Math.max(r.a.x, r.b.x) + 24, hi = Math.min(r.a.x + r.a.w, r.b.x + r.b.w) - 24; if (lo <= hi) r.ax = r.bx = (lo + hi) / 2; }
+  });
+  // A vertical between distant rows runs through a free gap between blocks, otherwise through the right corridor.
+  const usedX = [];
+  routes.forEach(r => {
+    if (!r || r.type === "side") return;
+    const lo = Math.min(r.a.row, r.b.row) + 1, hi = Math.max(r.a.row, r.b.row) - 1;
+    if (r.g1 === r.g2 || lo > hi) { r.X = null; return; }
+    // A backward link to an earlier phase (next loop, return) runs through the right corridor, not across other phases.
+    if (schemaSteps().back[r.i]) { r.X = x1 + 16 + 14 * corridor++; usedX.push(r.X); return; }
+    const mid = rows.slice(lo, hi + 1);
+    const between = mid.flatMap(q => q.items);
+    const clear = x => x > x0 - 30 && x < x1 + 4 && between.every(b => x < b.x - 10 || x > b.x + b.w + 10);
+    const free = x => usedX.every(u => Math.abs(u - x) >= 8);
+    const want = (r.ax + r.bx) / 2;
+    const cands = [r.bx, r.ax];
+    mid.forEach(q => q.items.forEach((b, k) => { const n = q.items[k + 1]; cands.push(n ? (b.x + b.w + n.x) / 2 : (b.x + b.w + x1) / 2 + 8); if (!k) cands.push((x0 + b.x) / 2 - 8); }));
+    cands.sort((p, q) => Math.abs(p - want) - Math.abs(q - want));
+    let X;
+    for (const c of cands) {
+      for (const d of [0, 9, -9, 18, -18, 27, -27]) { const x = c + d; if (clear(x) && free(x)) { X = x; break; } }
+      if (X !== undefined) break;
+    }
+    if (X === undefined) X = x1 + 16 + 14 * corridor++;
+    usedX.push(X);
+    r.X = X;
+  });
+  // Lane in a gap: [route, key, x of upper end, x of lower end, U-loop?]
+  routes.forEach(r => {
+    if (!r || r.type === "side") return;
+    const down = r.b.row > r.a.row;
+    if (r.g1 === r.g2) {
+      if (Math.abs(r.ax - r.bx) <= 1) return;
+      if (r.a.row === r.b.row) lanes[r.g1].push([r, "L", r.ax, r.bx, true]);
+      else lanes[r.g1].push([r, "L", down ? r.ax : r.bx, down ? r.bx : r.ax]);
+      return;
+    }
+    if (Math.abs(r.X - r.ax) > 1) lanes[r.g1].push([r, "L1", down ? r.ax : r.X, down ? r.X : r.ax]);
+    if (Math.abs(r.X - r.bx) > 1) lanes[r.g2].push([r, "L2", down ? r.X : r.bx, down ? r.bx : r.X]);
+  });
+  // Lane order with few crossings: loops on top (narrow first), then "rightward" (right upper end higher),
+  // then "leftward" (left upper end higher).
+  const rank = ([, , t, b, u]) => u ? [0, Math.abs(t - b)] : b > t ? [1, -t] : [2, t];
+  lanes.forEach(list => list.sort((p, q) => { const a = rank(p), b = rank(q); return a[0] - b[0] || a[1] - b[1]; }));
+
+  // 3. Vertically: rows, gaps with lanes, bands with room for the label.
+  const bandLabel = band => {
+    const tl = wrap(band.title, 20, 700, O.gutter - 64), sl = band.sub ? wrap(band.sub, 13, 400, O.gutter - 64) : [];
+    return { tl, sl, h: 30 + tl.length * 25 + sl.length * 18 + 22 };
+  };
+  const bandInfo = new Map();
+  const need = g => lanes[g].length ? (lanes[g].length - 1) * O.lane + 36 : 0;
+  const setLanes = (g, start, h) => { const off = (h - (lanes[g].length - 1) * O.lane) / 2; lanes[g].forEach(([r, key], k) => { r[key] = start + off + k * O.lane; }); };
+  let y = 22;
+  rows.forEach((row, ri) => {
+    const prev = rows[ri - 1];
+    const newBand = !prev || prev.band !== row.band;
+    let start = y, h;
+    if (!prev) h = need(ri) + (row.band ? O.padY : 0);
+    else if (!newBand) h = Math.max(O.rowGap, need(ri));
+    else {
+      if (prev.band) { const pi = bandInfo.get(prev.band); start = Math.max(start, pi.top + pi.label.h - O.padY); }
+      h = Math.max((prev.band ? O.padY : 0) + O.bandGap + (row.band ? O.padY : 0), need(ri) + (row.band ? 12 : 0));
+    }
+    setLanes(ri, start, row.band && newBand && ri ? h - 12 : h);
+    row.y = start + h;
+    if (row.band && newBand) bandInfo.set(row.band, { top: row.y - O.padY, label: bandLabel(row.band) });
+    if (row.band) bandInfo.get(row.band).last = row;
+    row.items.forEach(b => { b.y = row.y; });
+    y = row.y + row.h;
+  });
+  const last = rows[R - 1];
+  if (last && last.band) { const li = bandInfo.get(last.band); y = Math.max(y, li.top + li.label.h - O.padY); }
+  setLanes(R, y, need(R));
+  y += Math.max(last && last.band ? O.padY : 0, need(R) + (last && last.band ? 10 : 0));
+  bandInfo.forEach(info => { const l = info.last; info.bottom = Math.max(l.y + l.h + O.padY, info.top + info.label.h, l === last ? y : 0); });
+
+  // 4. Path points (right angles only).
+  routes.forEach(r => {
+    if (!r) return;
+    if (r.type === "side") {
+      const total = pairCount[r.key], cy = r.a.y + r.a.h / 2 + (r.n - (total - 1) / 2) * 16;
+      const lr = r.a.k < r.b.k;
+      r.pts = [[lr ? r.a.x + r.a.w : r.a.x, cy], [lr ? r.b.x : r.b.x + r.b.w, cy]];
+      return;
+    }
+    const ya = r.sa === "b" ? r.a.y + r.a.h : r.a.y, yb = r.sb === "b" ? r.b.y + r.b.h : r.b.y;
+    const p = [[r.ax, ya]];
+    if (r.g1 === r.g2) { if (r.L !== undefined) p.push([r.ax, r.L], [r.bx, r.L]); }
+    else {
+      if (r.L1 !== undefined) p.push([r.ax, r.L1], [r.X, r.L1]);
+      if (r.L2 !== undefined) p.push([r.X, r.L2], [r.bx, r.L2]);
+    }
+    p.push([r.bx, yb]);
+    r.pts = p.filter((q, k) => !k || q[0] !== p[k - 1][0] || q[1] !== p[k - 1][1]);
+  });
+
+  // 5. Numbers and labels: on the longest segment, never over blocks or each other.
+  const boxes = Object.values(B);
+  const taken = [];
+  const segs = routes.filter(Boolean).flatMap(r => r.pts.slice(1).map((q, k) => [r.i, r.pts[k], q]));
+  let self = -1;
+  const crossLine = (x, y, w, h) => segs.some(([i, [ax, ay], [bx, by]]) => i !== self &&
+    Math.min(ax, bx) < x + w && Math.max(ax, bx) > x && Math.min(ay, by) < y + h && Math.max(ay, by) > y);
+  const hits = (x, y, w, h) => boxes.some(b => x < b.x + b.w && x + w > b.x && y < b.y + b.h && y + h > b.y) || taken.some(t => x < t[0] + t[2] && x + w > t[0] && y < t[1] + t[3] && y + h > t[1]) || crossLine(x, y, w, h);
+  const longest = r => Math.max(...r.pts.slice(1).map((q, k) => Math.hypot(q[0] - r.pts[k][0], q[1] - r.pts[k][1])));
+  routes.filter(Boolean).sort((p, q) => longest(p) - longest(q)).forEach(r => { // short arrows pick their place first
+    self = r.i;
+    const own = r.pts.slice(1).map((q, k) => [r.pts[k], q, Math.hypot(q[0] - r.pts[k][0], q[1] - r.pts[k][1])]).sort((s, t) => t[2] - s[2]);
+    const text = G.labels[r.i] ? plain(G.labels[r.i]) : "";
+    const textW = text ? tw(text, 13, 600) : 0;
+    for (const [[ax, ay], [bx, by]] of own) {
+      const horiz = ay === by;
+      for (const withText of text ? [true, false] : [false]) {
+        const groupW = withText && horiz ? 24 + 6 + textW : 24;
+        for (let s = 0; s < 17 && !r.badge; s++) {
+          const t = .5 + (s % 2 ? 1 : -1) * Math.ceil(s / 2) * .055;
+          const mx = ax + (bx - ax) * t, my = ay + (by - ay) * t;
+          const left = horiz ? mx - groupW / 2 : mx - 12;
+          if (horiz && (Math.min(ax, bx) > left - 6 || Math.max(ax, bx) < left + groupW + 6)) continue;
+          if (!horiz && Math.abs(by - ay) < 34) continue;
+          if (hits(left - 2, my - 13, groupW + 4, 26)) continue;
+          if (withText && !horiz && hits(mx + 14, my - 10, textW + 6, 20)) continue;
+          r.badge = [left + 12, my];
+          taken.push([left - 2, my - 13, groupW + 4, 26]);
+          if (withText) { r.label = horiz ? [left + 30, my] : [mx + 16, my]; if (!horiz) taken.push([mx + 14, my - 10, textW + 6, 20]); }
+        }
+        if (r.badge) break;
+      }
+      if (r.badge) break;
+    }
+    if (!r.badge) { // no perfect spot — take the one with the fewest conflicts
+      const ov = (x, y, w, h, t) => x < t[0] + t[2] && x + w > t[0] && y < t[1] + t[3] && y + h > t[1];
+      let best = null;
+      for (const [[ax, ay], [bx, by], len] of own) for (let t = .1; t <= .9; t += .05) {
+        const mx = ax + (bx - ax) * t, my = ay + (by - ay) * t, q = [mx - 13, my - 13, 26, 26];
+        const score = boxes.filter(b => ov(...q, [b.x, b.y, b.w, b.h])).length * 100 + taken.filter(k => ov(...q, k)).length * 20 + (crossLine(...q) ? 1 : 0) - len / 1000;
+        if (!best || score < best[0]) best = [score, mx, my];
+      }
+      r.badge = [best[1], best[2]];
+      taken.push([best[1] - 13, best[2] - 13, 26, 26]);
+    }
+    r.text = text;
+  });
+
+  // 6. Footer: shared conventions across all blocks.
+  let footer = null;
+  if (G.footer) {
+    const [text, node] = Array.isArray(G.footer) ? G.footer : [G.footer];
+    const lines = wrap(text, 13, 400, x1 - 40 - 48);
+    footer = { x: 40, y: y + 22, w: x1 - 40, h: 22 + lines.length * 18, lines, node };
+    y = footer.y + footer.h;
+  }
+  const W = Math.max(O.W, corridor ? x1 + 16 + 14 * corridor + 10 : 0);
+  return { W, H: y + 24, B, bands: [...bandInfo.entries()], routes: routes.filter(Boolean), footer };
+}
+
+function renderSchema(host) {
+  const S = schemaLayout();
+  const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+  const col = k => (KIND[k] || ["#8a857c"])[0];
+  const mk = k => "mk-" + String(k).replace(/[^\w-]/g, "_");
+  const r1 = n => Math.round(n * 10) / 10;
+  let out = `<svg viewBox="0 0 ${r1(S.W)} ${r1(S.H)}" class="schema" style="min-width:${Math.round(S.W * .75)}px" role="img" aria-label="${T.ariaSchema}"><defs>${Object.keys(KIND).concat("_").map(k => `<marker id="${mk(k)}" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="17" markerHeight="17" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="${col(k)}"/></marker>`).join("")}</defs>`;
+  for (const [band, info] of S.bands) {
+    out += `<rect x="16" y="${r1(info.top)}" width="${r1(S.W - 32)}" height="${r1(info.bottom - info.top)}" rx="22" fill="${band.color}"/>`;
+    info.label.tl.forEach((l, k) => { out += `<text x="40" y="${r1(info.top + 40 + k * 25)}" class="s-band">${esc(l)}</text>`; });
+    info.label.sl.forEach((l, k) => { out += `<text x="40" y="${r1(info.top + 40 + info.label.tl.length * 25 - 3 + k * 18)}" class="s-band-sub">${esc(l)}</text>`; });
+  }
+  for (const r of S.routes) {
+    const d = r.pts.map(([x, y], k) => `${k ? "L" : "M"}${r1(x)},${r1(y)}`).join(" ");
+    const kind = E[r.i][2], gate = schemaSteps().gate[r.i];
+    out += `<g class="s-arrow${gate ? " s-gate" : ""}" data-edge="${r.i}" tabindex="0" role="button"><title>${stepNo(r.i)}. ${esc(E[r.i][3])}${gate ? " · " + gate : ""}</title><path d="${d}" class="s-hit"/><path d="${d}" stroke="${col(kind)}" marker-end="url(#${mk(KIND[kind] ? kind : "_")})" class="s-line"/></g>`;
+  }
+  for (const b of Object.values(S.B)) {
+    out += `<g class="s-node" data-node="${b.id}" tabindex="0" role="button"><rect x="${r1(b.x)}" y="${r1(b.y)}" width="${r1(b.w)}" height="${r1(b.h)}" rx="14"/>`;
+    b.tl.forEach((l, k) => { out += `<text x="${r1(b.x + 18)}" y="${r1(b.y + 37 + k * 23)}" class="s-title">${esc(l)}</text>`; });
+    b.sl.forEach((l, k) => { out += `<text x="${r1(b.x + 18)}" y="${r1(b.y + 38 + b.tl.length * 23 + k * 19)}" class="s-sub">${esc(l)}</text>`; });
+    for (const c of b.cp) {
+      const cx = b.x + 18 + c.dx, cy = b.y + b.textH + 10 + c.dy;
+      out += `<g class="s-chip" data-chip="${c.key}" tabindex="0" role="button"><rect x="${r1(cx)}" y="${r1(cy)}" width="${r1(c.w)}" height="26" rx="13"/><text x="${r1(cx + c.w / 2)}" y="${r1(cy + 18)}" text-anchor="middle">${esc(c.text)}</text></g>`;
+    }
+    out += `</g>`;
+  }
+  for (const r of S.routes) {
+    const [bx, by] = r.badge, c = col(E[r.i][2]);
+    const gate = schemaSteps().gate[r.i], n = stepNo(r.i);
+    out += `<g class="s-badge${gate ? " s-gate" : ""}" data-edge="${r.i}"><title>${n}. ${esc(E[r.i][3])}${gate ? " · " + gate : ""}</title>${gate ? `<circle cx="${r1(bx)}" cy="${r1(by)}" r="15" fill="#fff" stroke="${c}" stroke-width="2"/>` : ""}<circle cx="${r1(bx)}" cy="${r1(by)}" r="12" fill="${c}"/><text x="${r1(bx)}" y="${r1(by + 4)}" text-anchor="middle">${n}</text></g>`;
+    if (r.label) out += `<text x="${r1(r.label[0])}" y="${r1(r.label[1] + 4.5)}" fill="${c}" class="s-label${gate ? " s-gate" : ""}" data-edge="${r.i}">${esc(r.text)}</text>`;
+  }
+  if (S.footer) {
+    const f = S.footer;
+    out += `<g class="s-libs" ${f.node ? `data-node="${f.node}" tabindex="0" role="button"` : ""}><rect x="${f.x}" y="${r1(f.y)}" width="${r1(f.w)}" height="${r1(f.h)}" rx="14"/>${f.lines.map((l, k) => `<text x="${r1(f.x + f.w / 2)}" y="${r1(f.y + 26 + k * 18)}" text-anchor="middle">${esc(l)}</text>`).join("")}</g>`;
+  }
+  host.innerHTML = out + "</svg>";
+}
+
+</script>
+<script>
+// Map page engine: header, menu, sections, "Schema / Block view" tabs, wires and cards.
+// Nothing here is edited per project: all content comes from project-data.js (META, N, E, CHIP, KIND, LAYOUT, PAGES).
+// UI strings come from I18N in project-schema.js (META.lang = "en" | "ru").
+const M = Object.assign({ title: T.title, kicker: T.kicker, lead: T.lead, mapKicker: T.mapKicker, mapTitle: T.mapTitle, mapIntro: T.mapIntro, footer: "" }, typeof META === "object" ? META : {});
+document.documentElement.lang = LANG;
+
+const link = (repo, path) => {
+  const [proj, ref] = REPO[repo], kind = path.endsWith("/") ? "tree" : "blob", p = path.replace(/\/$/, "");
+  return /github\.com/.test(GL) ? `${GL}/${proj}/${kind}/${ref}/${p}` : `${GL}/${proj}/-/${kind}/${ref}/${p}`;
+};
+const files = list => list && list.length ? `<div class="links">${list.map(([r, p]) => `<a href="${link(r, p)}" target="_blank" rel="noreferrer"><span class="repo">${r}</span>${p}</a>`).join("")}</div>` : "";
+const bullets = items => items && items.length ? `<ul>${items.map(i => `<li>${i}</li>`).join("")}</ul>` : "";
+const flow = steps => `<ol class="flow">${steps.map(([t, s], i) => `<li><span class="num">${i + 1}</span><span>${t}${s ? `<small>${s}</small>` : ""}</span></li>`).join("")}</ol>`;
+const mod = (title, items, paths) => `<div class="card"><h3>${title}</h3>${bullets(items)}<div style="margin-top:10px">${files(paths)}</div></div>`;
+const nodeHtml = id => {
+  const [title, sub, , , , chips] = N[id];
+  return `<div class="node" role="button" tabindex="0" data-node="${id}"><strong>${title}</strong><small>${sub}</small>${chips ? `<div class="chips">${chips.map(([k, l]) => `<button type="button" class="chip" data-chip="${k}">${l}</button>`).join("")}</div>` : ""}</div>`;
+};
+const group = (g, title, sub, ids) => `<div class="group" style="background:${g}"><h3>${title}</h3>${sub ? `<div class="sub">${sub}</div>` : ""}${ids.map(nodeHtml).join("")}</div>`;
+
+// Header, menu and sections.
+document.title = M.title.replace(/<[^>]*>/g, "");
+document.getElementById("hero-kicker").innerHTML = M.kicker;
+document.getElementById("hero-title").innerHTML = M.title;
+document.getElementById("hero-lead").innerHTML = M.lead;
+document.getElementById("page-footer").innerHTML = M.footer;
+
+const GROUPS = schemaGroups();
+const blockGroups = (GROUPS.top.ids.length ? [GROUPS.top] : []).concat(GROUPS.bands);
+const legend = `<div class="legend">${Object.values(KIND).map(([c, l]) => `<span><i style="background:${c}"></i>${l}</span>`).join("")}</div>`;
+const SECTIONS = [
+  ["map", M.mapKicker, M.mapTitle, M.mapIntro,
+    `<div class="tabs" role="tablist"><button type="button" role="tab" aria-selected="true" data-tab="schema">${T.schema}</button><button type="button" role="tab" aria-selected="false" data-tab="block">${T.block}</button></div>
+    <div class="tab-panel" data-panel="schema"><div class="schema-shell" id="schema"></div>${legend}</div>
+    <div class="tab-panel" data-panel="block" hidden><div class="map-shell"><div class="map" id="map" style="grid-template-columns:repeat(${blockGroups.length},minmax(210px,1fr));min-width:${blockGroups.length * 270}px">
+      ${blockGroups.map(g => group(g.color, g.title, g.sub, g.ids)).join("")}
+    </div><svg class="wires" id="wires"></svg><div class="badges" id="badges"></div></div>${legend}</div>
+    <div class="edges">${schemaSteps().order.map(i => { const e = E[i], gate = schemaSteps().gate[i]; return `<button type="button" class="edge-item${gate ? " gate" : ""}" data-edge="${i}"><span class="n" style="background:${(KIND[e[2]] || ["#292929"])[0]}">${stepNo(i)}</span><span>${gate ? `<em class="gate-tag">${gate}</em>` : ""}<b>${e[3]}</b><span>${e[4]}</span></span></button>`; }).join("")}</div>`],
+  ...(typeof PAGES === "function" ? PAGES() : []),
+];
+document.getElementById("content").innerHTML = SECTIONS.map(([id, kicker, title, intro, html]) =>
+  `<section id="${id}"><p class="kicker">${kicker}</p><h2>${title}</h2>${intro ? `<p class="intro">${intro}</p>` : ""}${html}</section>`).join("");
+document.getElementById("toc").innerHTML = SECTIONS.map(([id, kicker, title]) => `<a href="#${id}">${id === "map" ? T.schema : kicker || title}</a>`).join("");
+
+renderSchema(document.getElementById("schema"));
+document.querySelectorAll("[data-tab]").forEach(tab => tab.addEventListener("click", () => {
+  document.querySelectorAll("[data-tab]").forEach(t => t.setAttribute("aria-selected", String(t === tab)));
+  document.querySelectorAll("[data-panel]").forEach(p => { p.hidden = p.dataset.panel !== tab.dataset.tab; });
+  if (tab.dataset.tab === "block") draw();
+}));
+
+// Block-view wires: one curve per link; ends spread along the block side; numbers never collide.
+const shell = document.querySelector(".map-shell"), wires = document.getElementById("wires"), badges = document.getElementById("badges");
+function draw() {
+  if (!shell || shell.offsetParent === null) return;
+  wires.innerHTML = ""; badges.innerHTML = "";
+  wires.style.width = shell.scrollWidth + "px"; wires.style.height = shell.scrollHeight + "px";
+  const base = shell.getBoundingClientRect(), sx = shell.scrollLeft;
+  const box = id => {
+    const r = shell.querySelector(`.map [data-node="${id}"]`).getBoundingClientRect();
+    return { l: r.left - base.left + sx, r: r.right - base.left + sx, cx: (r.left + r.right) / 2 - base.left + sx, cy: (r.top + r.bottom) / 2 - base.top };
+  };
+  const back = i => !!schemaSteps().back[i];
+  const ends = E.map(([f, t], i) => {
+    if (!(f in N) || !(t in N) || back(i)) return null;
+    const a = box(f), b = box(t);
+    if (Math.abs(a.cx - b.cx) < 40) return [a, "r", b, "r"]; // a link inside one column bulges right into the gap
+    return a.cx < b.cx ? [a, "r", b, "l"] : [a, "l", b, "r"];
+  });
+  const slots = {};
+  ends.forEach((e, i) => { if (!e) return; (slots[E[i][0] + e[1]] ??= []).push([i, 0]); (slots[E[i][1] + e[3]] ??= []).push([i, 1]); });
+  const off = {};
+  Object.values(slots).forEach(list => list.forEach(([i, end], k) => { off[`${i}-${end}`] = (k - (list.length - 1) / 2) * 10; }));
+  const pt = (n, side, o) => [side === "r" ? n.r : n.l, n.cy + o];
+  const placed = [];
+  ends.forEach((e, i) => {
+    if (!e) return;
+    const [a, sa, b, sb] = e;
+    const [x1, y1] = pt(a, sa, off[`${i}-0`]), [x2, y2] = pt(b, sb, off[`${i}-1`]);
+    const same = sa === sb, dx = same ? 22 + Math.min(30, Math.abs(y2 - y1) * .12) : Math.max(36, Math.abs(x2 - x1) / 2);
+    const c1 = [x1 + (sa === "r" ? dx : -dx), y1], c2 = [x2 + (sb === "r" ? dx : -dx), y2];
+    const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    p.setAttribute("d", `M${x1},${y1} C${c1} ${c2} ${x2},${y2}`);
+    p.setAttribute("stroke", (KIND[E[i][2]] || ["#8a857c"])[0]); p.dataset.edge = i; if (schemaSteps().gate[i]) p.classList.add("gate");
+    wires.appendChild(p);
+    const len = p.getTotalLength();
+    let t = .5, q = p.getPointAtLength(len * t);
+    for (let k = 0; k < 14 && placed.some(([x, y]) => Math.hypot(x - q.x, y - q.y) < 27); k++) {
+      t = .5 + (k % 2 ? 1 : -1) * Math.ceil((k + 1) / 2) * .06; q = p.getPointAtLength(len * t);
+    }
+    placed.push([q.x, q.y]);
+    const badge = document.createElement("button");
+    badge.type = "button"; badge.className = "badge"; badge.dataset.edge = i; badge.textContent = stepNo(i); badge.title = E[i][3]; if (schemaSteps().gate[i]) badge.classList.add("gate");
+    badge.style.left = `${q.x}px`; badge.style.top = `${q.y}px`; badge.style.background = (KIND[E[i][2]] || ["#292929"])[0];
+    badges.appendChild(badge);
+  });
+  if (!wires.querySelector("#wire-arrow")) wires.insertAdjacentHTML("afterbegin", `<defs><marker id="wire-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8a857c"/></marker></defs>`);
+  drawBack(placed);
+}
+window.addEventListener("resize", () => requestAnimationFrame(draw));
+// Backward links (next loop, return to an earlier phase): dashed along the bottom and up the gap left of the target.
+function drawBack(placed) {
+  const base = shell.getBoundingClientRect(), sx = shell.scrollLeft;
+  const mapEl = shell.querySelector(".map"), mb = mapEl.getBoundingClientRect();
+  let k = 0;
+  E.forEach(([f, t], i) => {
+    if (!schemaSteps().back[i] || !(f in N) || !(t in N)) return;
+    const rect = id => shell.querySelector(`.map [data-node="${id}"]`).getBoundingClientRect();
+    const a = rect(f), b = rect(t), col = shell.querySelector(`.map [data-node="${t}"]`).closest(".group").getBoundingClientRect();
+    const X = v => v - base.left + sx, Y = v => v - base.top;
+    const yb = Y(mb.bottom) + 18 + k * 12, xg = X(col.left) - 14 - k * 8, k0 = k++;
+    const x1 = X((a.left + a.right) / 2), y1 = Y(a.bottom), y2 = Y((b.top + b.bottom) / 2), x2 = X(b.left);
+    const d = `M${x1},${y1} V${yb} H${xg} V${y2} H${x2}`;
+    const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    p.setAttribute("d", d); p.setAttribute("stroke", (KIND[E[i][2]] || ["#8a857c"])[0]); p.setAttribute("stroke-dasharray", "6 5");
+    p.setAttribute("marker-end", "url(#wire-arrow)"); p.dataset.edge = i; p.classList.add("gate", "back");
+    wires.appendChild(p);
+    const badge = document.createElement("button");
+    badge.type = "button"; badge.className = "badge gate"; badge.dataset.edge = i; badge.textContent = stepNo(i); badge.title = E[i][3];
+    badge.style.left = `${(x1 + xg) / 2}px`; badge.style.top = `${yb}px`; badge.style.background = (KIND[E[i][2]] || ["#292929"])[0];
+    badges.appendChild(badge);
+  });
+  if (k) { shell.style.paddingBottom = `${30 + k * 12}px`; wires.style.height = shell.scrollHeight + "px"; }
+}
+
+// Highlighting and cards.
+const toggle = (sel, on) => document.querySelectorAll(sel).forEach(x => x.classList.toggle("hot", on));
+function hotNode(id, on) { toggle(`[data-node="${id}"]`, on); E.forEach((e, i) => { if (e[0] === id || e[1] === id) toggle(`[data-edge="${i}"]`, on); }); }
+function hotEdge(i, on) { toggle(`[data-edge="${i}"]`, on); toggle(`[data-node="${E[i][0]}"]`, on); toggle(`[data-node="${E[i][1]}"]`, on); }
+for (const [type, on] of [["mouseover", true], ["mouseout", false]])
+  document.addEventListener(type, e => {
+    if (e.target.closest("[data-chip]")) return;
+    const d = e.target.closest("[data-edge]"); if (d) return hotEdge(+d.dataset.edge, on);
+    const n = e.target.closest("[data-node]"); if (n) hotNode(n.dataset.node, on);
+  });
+
+const dlg = document.getElementById("dlg");
+function show(title, route, html) {
+  document.getElementById("dlg-title").innerHTML = title;
+  document.getElementById("dlg-route").innerHTML = route;
+  document.getElementById("dlg-body").innerHTML = html;
+  dlg.showModal();
+}
+function openNode(id) {
+  const [title, sub, what, how, paths] = N[id];
+  const related = E.map((e, i) => [e, i]).filter(([e]) => e[0] === id || e[1] === id).sort((a, b) => stepNo(a[1]) - stepNo(b[1]));
+  show(title, sub, `<p>${what || ""}</p>${how && how.length ? `<h4>${T.how}</h4>${bullets(how)}` : ""}${related.length ? `<h4>${T.links}</h4>${bullets(related.map(([e, i]) => `<a href="#" data-edge-link="${i}">${stepNo(i)}. ${e[3]}</a> — ${e[4]}`))}` : ""}${paths && paths.length ? `<h4>${T.where}</h4>${files(paths)}` : ""}`);
+}
+function openEdge(i) {
+  const [from, to, kind, title, summary, how, paths] = E[i];
+  const gate = schemaSteps().gate[i];
+  show(`${stepNo(i)}. ${title}`, `${N[from][0]} → ${N[to][0]} · ${(KIND[kind] || ["", kind])[1]}${gate ? " · " + gate : ""}`, `<p>${summary || ""}</p>${how && how.length ? `<h4>${T.how}</h4>${bullets(how)}` : ""}${paths && paths.length ? `<h4>${T.where}</h4>${files(paths)}` : ""}`);
+}
+function openChip(key) {
+  if (!(key in CHIP)) return key in N ? openNode(key) : undefined;
+  const [title, items, paths] = CHIP[key];
+  show(title, "", `${bullets(items)}${paths && paths.length ? `<h4>${T.where}</h4>${files(paths)}` : ""}`);
+}
+document.addEventListener("click", e => {
+  const chip = e.target.closest("[data-chip]"); if (chip) { e.stopPropagation(); return openChip(chip.dataset.chip); }
+  const edgeLink = e.target.closest("[data-edge-link]"); if (edgeLink) { e.preventDefault(); return openEdge(+edgeLink.dataset.edgeLink); }
+  const edge = e.target.closest("[data-edge]"); if (edge) return openEdge(+edge.dataset.edge);
+  const node = e.target.closest("[data-node]"); if (node) return openNode(node.dataset.node);
+});
+document.addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const t = e.target;
+  if (t.matches("[data-chip]")) { e.preventDefault(); openChip(t.dataset.chip); }
+  else if (t.matches("[data-edge]")) { e.preventDefault(); openEdge(+t.dataset.edge); }
+  else if (t.matches("[data-node]")) { e.preventDefault(); openNode(t.dataset.node); }
+});
+dlg.querySelector(".close").setAttribute("aria-label", T.close);
+dlg.querySelector(".close").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+
+</script>
+</body>
+</html>

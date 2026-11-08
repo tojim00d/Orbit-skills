@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1148 949" width="1148" height="949" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<defs><pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#1b2a42"/></pattern>
+<marker id="a0" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5cc8ff"/></marker>
+<marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7ee2a8"/></marker>
+<marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffd166"/></marker>
+<marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c29bff"/></marker>
+<marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff8fa3"/></marker>
+<marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#66e0d0"/></marker>
+<marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9fb0c8"/></marker></defs>
+<rect width="1148" height="949" fill="#0f1b2d"/><rect width="1148" height="949" fill="url(#g)"/>
+<text x="48" y="64" font-size="30" font-weight="800" fill="#ffffff">Orbit — полный цикл работы над проектом</text>
+<text x="48" y="94" font-size="15" fill="#9fb0c8">Фазы слева направо, шаги сверху вниз. Каждый шаг выдаёт артефакт — вход следующего.</text>
+<rect x="48" y="150" width="300" height="4" rx="2" fill="#5cc8ff"/>
+<text x="48" y="182" font-size="20" font-weight="800" fill="#5cc8ff">①</text>
+<text x="78" y="182" font-size="20" font-weight="800" fill="#eef3fb">Разобраться</text>
+<text x="48" y="204" font-size="13" fill="#9fb0c8">понять задачу и систему до кода</text>
+<path d="M376.0,160 L390.0,172 L376.0,184" fill="none" stroke="#9fb0c8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="424" y="150" width="300" height="4" rx="2" fill="#7ee2a8"/>
+<text x="424" y="182" font-size="20" font-weight="800" fill="#7ee2a8">②</text>
+<text x="454" y="182" font-size="20" font-weight="800" fill="#eef3fb">Разработать</text>
+<text x="424" y="204" font-size="13" fill="#9fb0c8">малыми шагами, с тестами и проверкой</text>
+<path d="M752.0,160 L766.0,172 L752.0,184" fill="none" stroke="#9fb0c8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="800" y="150" width="300" height="4" rx="2" fill="#ffd166"/>
+<text x="800" y="182" font-size="20" font-weight="800" fill="#ffd166">③</text>
+<text x="830" y="182" font-size="20" font-weight="800" fill="#eef3fb">Сопровождать</text>
+<text x="800" y="204" font-size="13" fill="#9fb0c8">объяснить, запомнить, поддержать</text>
+<path d="M82,341 V373" fill="none" stroke="#5cc8ff" stroke-width="2.4" marker-end="url(#a0)" stroke-linejoin="round"/>
+<path d="M82,513 V545" fill="none" stroke="#5cc8ff" stroke-width="2.4" marker-end="url(#a0)" stroke-linejoin="round"/>
+<path d="M82,673 V705" fill="none" stroke="#5cc8ff" stroke-width="2.4" marker-end="url(#a0)" stroke-linejoin="round"/>
+<path d="M348,761.0 H381.0 V287.0 H422" fill="none" stroke="#7ee2a8" stroke-width="2.4" marker-end="url(#a1)" stroke-linejoin="round"/>
+<rect x="359.259" y="514.0" width="43.482" height="20" rx="10" fill="#0f1b2d" stroke="#7ee2a8"/><text x="381.0" y="528.0" font-size="11" font-weight="700" text-anchor="middle" fill="#7ee2a8">спека</text>
+<path d="M458,341 V373" fill="none" stroke="#7ee2a8" stroke-width="2.4" marker-end="url(#a1)" stroke-linejoin="round"/>
+<path d="M458,483 V515" fill="none" stroke="#7ee2a8" stroke-width="2.4" marker-end="url(#a1)" stroke-linejoin="round"/>
+<path d="M458,625 V657" fill="none" stroke="#7ee2a8" stroke-width="2.4" marker-end="url(#a1)" stroke-linejoin="round"/>
+<path d="M724,713.0 H757.0 V287.0 H798" fill="none" stroke="#ffd166" stroke-width="2.4" marker-end="url(#a2)" stroke-linejoin="round"/>
+<rect x="730.3618" y="490.0" width="53.2764" height="20" rx="10" fill="#0f1b2d" stroke="#ffd166"/><text x="757.0" y="504.0" font-size="11" font-weight="700" text-anchor="middle" fill="#ffd166">в карту</text>
+<path d="M834,341 V373" fill="none" stroke="#ffd166" stroke-width="2.4" marker-end="url(#a2)" stroke-linejoin="round"/>
+<path d="M834,483 V515" fill="none" stroke="#ffd166" stroke-width="2.4" marker-end="url(#a2)" stroke-linejoin="round"/>
+<path d="M950.0,625 V859 H28 V287.0 H46" fill="none" stroke="#9fb0c8" stroke-width="2.4" stroke-dasharray="7 6" marker-end="url(#am)" stroke-linejoin="round"/>
+<text x="424.0" y="852" font-size="12" font-weight="700" fill="#9fb0c8">новый виток</text>
+<rect x="48" y="233" width="300" height="108" rx="14" fill="#15243b" stroke="#2c4366"/>
+<rect x="48" y="245" width="4" height="84" rx="2" fill="#5cc8ff"/>
+<circle cx="322" cy="259" r="13" fill="#5cc8ff"/><text x="322" y="263.5" font-size="12" font-weight="800" text-anchor="middle" fill="#0f1b2d">1</text>
+<text x="66" y="266" font-size="17" font-weight="700" fill="#eef3fb">Приём задачи</text>
+<text x="66" y="286" font-size="13" fill="#9fb0c8">однозначные требования</text>
+<rect x="66" y="306" width="86.24" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="109.12" y="322" font-size="12" text-anchor="middle" fill="#eef3fb">clarify-task</text>
+<rect x="158.24" y="306" width="81.92" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="199.20000000000002" y="322" font-size="12" text-anchor="middle" fill="#eef3fb">shape-idea</text>
+<rect x="48" y="375" width="300" height="138" rx="14" fill="#15243b" stroke="#2c4366"/>
+<rect x="48" y="387" width="4" height="114" rx="2" fill="#5cc8ff"/>
+<circle cx="322" cy="401" r="13" fill="#5cc8ff"/><text x="322" y="405.5" font-size="12" font-weight="800" text-anchor="middle" fill="#0f1b2d">2</text>
+<text x="66" y="408" font-size="17" font-weight="700" fill="#eef3fb">Разведка кода</text>
+<text x="66" y="428" font-size="13" fill="#9fb0c8">граф знаний, факты с file:line</text>
+<rect x="66" y="448" width="108.08000000000001" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="120.04" y="464" font-size="12" text-anchor="middle" fill="#eef3fb">map-knowledge</text>
+<rect x="180.08" y="448" width="81.92" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="221.04000000000002" y="464" font-size="12" text-anchor="middle" fill="#eef3fb">index-code</text>
+<rect x="66" y="478" width="117.20000000000002" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="124.60000000000001" y="494" font-size="12" text-anchor="middle" fill="#eef3fb">survey-codebase</text>
+<rect x="48" y="547" width="300" height="126" rx="14" fill="#15243b" stroke="#2c4366"/>
+<rect x="48" y="559" width="4" height="102" rx="2" fill="#5cc8ff"/>
+<circle cx="322" cy="573" r="13" fill="#5cc8ff"/><text x="322" y="577.5" font-size="12" font-weight="800" text-anchor="middle" fill="#0f1b2d">3</text>
+<text x="66" y="580" font-size="17" font-weight="700" fill="#eef3fb">Реверс-инжиниринг</text>
+<text x="66" y="600" font-size="13" fill="#9fb0c8">артефакт, бинарник, API без</text>
+<text x="66" y="618" font-size="13" fill="#9fb0c8">документации</text>
+<rect x="66" y="638" width="91.28" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="111.64" y="654" font-size="12" text-anchor="middle" fill="#eef3fb">reverse-app</text>
+<rect x="163.28" y="638" width="119.12" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="222.84" y="654" font-size="12" text-anchor="middle" fill="#eef3fb">teardown-artifact</text>
+<rect x="48" y="707" width="300" height="108" rx="14" fill="#15243b" stroke="#2c4366"/>
+<rect x="48" y="719" width="4" height="84" rx="2" fill="#5cc8ff"/>
+<circle cx="322" cy="733" r="13" fill="#5cc8ff"/><text x="322" y="737.5" font-size="12" font-weight="800" text-anchor="middle" fill="#0f1b2d">4</text>
+<text x="66" y="740" font-size="17" font-weight="700" fill="#eef3fb">Спецификация</text>
+<text x="66" y="760" font-size="13" fill="#9fb0c8">спека раньше кода</text>
+<rect x="66" y="780" width="82.4" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="107.2" y="796" font-size="12" text-anchor="middle" fill="#eef3fb">write-spec</text>
+<rect x="154.4" y="780" width="101.36" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="205.08" y="796" font-size="12" text-anchor="middle" fill="#eef3fb">run-spec-loop</text>
+<rect x="424" y="233" width="300" height="108" rx="14" fill="#15243b" stroke="#2c4366"/>
+<rect x="424" y="245" width="4" height="84" rx="2" fill="#7ee2a8"/>
+<circle cx="698" cy="259" r="13" fill="#7ee2a8"/><text x="698" y="263.5" font-size="12" font-weight="800" text-anchor="middle" fill="#0f1b2d">5</text>
+<text x="442" y="266" font-size="17" font-weight="700" fill="#eef3fb">План</text>
+<text x="442" y="286" font-size="13" fill="#9fb0c8">задачи по 2–5 минут</text>
+<rect x="442" y="306" width="79.03999999999999" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="481.52" y="322" font-size="12" text-anchor="middle" fill="#eef3fb">plan-steps</text>
+<rect x="527.04" y="306" width="89.83999999999999" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="571.9599999999999" y="322" font-size="12" text-anchor="middle" fill="#eef3fb">slice-tickets</text>
+<rect x="424" y="375" width="300" height="108" rx="14" fill="#15243b" stroke="#2c4366"/>
+<rect x="424" y="387" width="4" height="84" rx="2" fill="#7ee2a8"/>
+<circle cx="698" cy="401" r="13" fill="#7ee2a8"/><text x="698" y="405.5" font-size="12" font-weight="800" text-anchor="middle" fill="#0f1b2d">6</text>
+<text x="442" y="408" font-size="17" font-weight="700" fill="#eef3fb">Реализация</text>
+<text x="442" y="428" font-size="13" fill="#9fb0c8">тест → код → рефакторинг</text>
+<rect x="442" y="448" width="70.4" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="477.2" y="464" font-size="12" text-anchor="middle" fill="#eef3fb">test-first</text>
+<rect x="424" y="517" width="300" height="108" rx="14" fill="#15243b" stroke="#2c4366"/>
+<rect x="424" y="529" width="4" height="84" rx="2" fill="#7ee2a8"/>
+<circle cx="698" cy="543" r="13" fill="#7ee2a8"/><text x="698" y="547.5" font-size="12" font-weight="800" text-anchor="middle" fill="#0f1b2d">7</text>
+<text x="442" y="550" font-size="17" font-weight="700" fill="#eef3fb">Проверка</text>
+<text x="442" y="570" font-size="13" fill="#9fb0c8">доказать, что работает</text>
+<rect x="442" y="590" width="84.80000000000001" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="484.4" y="606" font-size="12" text-anchor="middle" fill="#eef3fb">prove-done</text>
+<rect x="532.8" y="590" width="91.75999999999999" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="578.68" y="606" font-size="12" text-anchor="middle" fill="#eef3fb">review-code</text>
+<rect x="424" y="659" width="300" height="108" rx="14" fill="#15243b" stroke="#2c4366"/>
+<rect x="424" y="671" width="4" height="84" rx="2" fill="#7ee2a8"/>
+<circle cx="698" cy="685" r="13" fill="#7ee2a8"/><text x="698" y="689.5" font-size="12" font-weight="800" text-anchor="middle" fill="#0f1b2d">8</text>
+<text x="442" y="692" font-size="17" font-weight="700" fill="#eef3fb">Выпуск</text>
+<text x="442" y="712" font-size="13" fill="#9fb0c8">MR и деплой</text>
+<rect x="442" y="732" width="68.72" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="476.36" y="748" font-size="12" text-anchor="middle" fill="#eef3fb">open-mr</text>
+<rect x="516.72" y="732" width="69.19999999999999" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="551.32" y="748" font-size="12" text-anchor="middle" fill="#eef3fb">ship-k8s</text>
+<rect x="800" y="233" width="300" height="108" rx="14" fill="#15243b" stroke="#2c4366"/>
+<rect x="800" y="245" width="4" height="84" rx="2" fill="#ffd166"/>
+<circle cx="1074" cy="259" r="13" fill="#ffd166"/><text x="1074" y="263.5" font-size="12" font-weight="800" text-anchor="middle" fill="#0f1b2d">9</text>
+<text x="818" y="266" font-size="17" font-weight="700" fill="#eef3fb">Карта проекта</text>
+<text x="818" y="286" font-size="13" fill="#9fb0c8">интерактивная или статичная</text>
+<rect x="818" y="306" width="88.88" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="862.44" y="322" font-size="12" text-anchor="middle" fill="#eef3fb">project-map</text>
+<rect x="912.88" y="306" width="111.92" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="968.84" y="322" font-size="12" text-anchor="middle" fill="#eef3fb">project-diagram</text>
+<rect x="800" y="375" width="300" height="108" rx="14" fill="#15243b" stroke="#2c4366"/>
+<rect x="800" y="387" width="4" height="84" rx="2" fill="#ffd166"/>
+<circle cx="1074" cy="401" r="13" fill="#ffd166"/><text x="1074" y="405.5" font-size="12" font-weight="800" text-anchor="middle" fill="#0f1b2d">10</text>
+<text x="818" y="408" font-size="17" font-weight="700" fill="#eef3fb">Память и передача</text>
+<text x="818" y="428" font-size="13" fill="#9fb0c8">выученное рядом с кодом</text>
+<rect x="818" y="448" width="104.96000000000001" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="870.48" y="464" font-size="12" text-anchor="middle" fill="#eef3fb">keep-learnings</text>
+<rect x="928.96" y="448" width="108.56" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="983.24" y="464" font-size="12" text-anchor="middle" fill="#eef3fb">handoff-session</text>
+<rect x="800" y="517" width="300" height="108" rx="14" fill="#15243b" stroke="#2c4366"/>
+<rect x="800" y="529" width="4" height="84" rx="2" fill="#ffd166"/>
+<circle cx="1074" cy="543" r="13" fill="#ffd166"/><text x="1074" y="547.5" font-size="12" font-weight="800" text-anchor="middle" fill="#0f1b2d">11</text>
+<text x="818" y="550" font-size="17" font-weight="700" fill="#eef3fb">Эксплуатация</text>
+<text x="818" y="570" font-size="13" fill="#9fb0c8">алерты, runbook, инциденты</text>
+<rect x="818" y="590" width="138.56000000000003" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="887.28" y="606" font-size="12" text-anchor="middle" fill="#eef3fb">review-observability</text>
+<rect x="962.5600000000001" y="590" width="105.67999999999999" height="24" rx="12" fill="#1d3150" stroke="#2c4366"/><text x="1015.4000000000001" y="606" font-size="12" text-anchor="middle" fill="#eef3fb">handle-incident</text>
+<rect x="48" y="905" width="1052" height="30" rx="10" fill="none" stroke="#2c4366" stroke-dasharray="5 5"/><text x="574.0" y="925" font-size="13" text-anchor="middle" fill="#9fb0c8">Поверх всех фаз: простой язык ответов · работа в оговорённых границах · малые изменения</text>
+</svg>

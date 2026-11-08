@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use Orbit, please cite it as below."
+title: "Orbit — Claude Code skill pack for the full software lifecycle"
+type: software
+authors:
+  - name: "Orbit contributors"
+license: MIT
+version: "3.0.0"
+date-released: "2026-11-08"
+repository-code: "https://github.com/tojim00d/Orbit-skills"
+url: "https://tojim00d.github.io/Orbit-skills/"
+abstract: "Open-source Claude Code plugin with 89 agent skills forming one end-to-end pipeline: Understand → Build → Operate, with spec-driven development on OpenSpec, reverse engineering, DevOps and interactive project maps."
+keywords: [claude-code, claude-code-plugin, agent-skills, skill-pack, spec-driven-development, openspec, reverse-engineering, devops, kubernetes, project-map]
