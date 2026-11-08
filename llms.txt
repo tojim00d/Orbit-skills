@@ -1,0 +1,20 @@
+# Orbit
+
+> Orbit is an open-source Claude Code plugin (skill pack) with 89 agent skills that form one end-to-end software-delivery pipeline: Understand → Build → Operate. It covers task clarification, codebase knowledge graphs, reverse engineering of apps/images/binaries, spec-driven development on OpenSpec, test-first implementation, code and security review, Kubernetes/Helm/GitOps release, interactive project maps, static diagrams, onboarding and incident response. MIT licence. Skills are standard SKILL.md folders and work beyond Claude Code (Codex, Qwen Code, GLM, DeepSeek, any SKILL.md loader).
+
+Primary pages:
+- [Home (EN)](https://tojim00d.github.io/Orbit-skills/)
+- [Главная (RU)](https://tojim00d.github.io/Orbit-skills/index.ru.html)
+- [Interactive pack map](https://tojim00d.github.io/Orbit-skills/map.html) / [карта пака](https://tojim00d.github.io/Orbit-skills/map.ru.html)
+
+Repository docs:
+- [README](https://github.com/tojim00d/Orbit-skills/blob/main/README.md) / [README (RU)](https://github.com/tojim00d/Orbit-skills/blob/main/README.ru.md)
+- [AGENTS.md](https://github.com/tojim00d/Orbit-skills/blob/main/AGENTS.md) — entry point for non-Claude agents (Codex, Qwen Code, DeepSeek, Cursor)
+- [COMPATIBILITY.md](https://github.com/tojim00d/Orbit-skills/blob/main/COMPATIBILITY.md) — which agents and models work, and how
+- [CATALOG](https://github.com/tojim00d/Orbit-skills/blob/main/CATALOG.md) — all 89 skills with inputs, outputs and sources
+- [ARTIFACTS](https://github.com/tojim00d/Orbit-skills/blob/main/ARTIFACTS.md) — the shared `.orbit/` folder contract
+- [CREDITS](https://github.com/tojim00d/Orbit-skills/blob/main/CREDITS.md) — sources and licences
+
+Install:
+- `claude plugin marketplace add tojim00d/Orbit-skills` then `claude plugin install orbit@orbit`, restart Claude Code, type `/orbit:orbit`.
+- Other agents: `./install.sh --skills-dir <dir>` (see AGENTS.md).

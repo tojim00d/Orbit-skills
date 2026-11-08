@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit — Claude Code skill pack: 89 agent skills for the full software lifecycle</title>
+<meta name="description" content="Orbit is an open-source Claude Code plugin with 89 agent skills in one end-to-end pipeline: clarify tasks, map codebases, reverse engineering, spec-driven development on OpenSpec, TDD, code and security review, Kubernetes/Helm/GitOps, project maps and incident response. Skills are plain SKILL.md folders, so Codex, Qwen Code, GLM, DeepSeek and other agents can use them too.">
+<meta name="keywords" content="Claude Code skills, Claude Code plugin, agent skills, SKILL.md, skill pack, AI coding agent, spec-driven development, OpenSpec, TDD, code review, security review, reverse engineering, Docker image analysis, Kubernetes, Helm, GitOps, project map, architecture diagram, onboarding, incident response, Codex, Qwen Code, GLM, DeepSeek">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://tojim00d.github.io/Orbit-skills/">
+<link rel="alternate" hreflang="en" href="https://tojim00d.github.io/Orbit-skills/">
+<link rel="alternate" hreflang="ru" href="https://tojim00d.github.io/Orbit-skills/index.ru.html">
+<link rel="alternate" hreflang="x-default" href="https://tojim00d.github.io/Orbit-skills/">
+<link rel="alternate" type="text/plain" title="llms.txt" href="llms.txt">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Orbit — Claude Code skill pack for the full software lifecycle">
+<meta property="og:description" content="89 agent skills in one pipeline: Understand → Build → Operate. Spec-driven development, reverse engineering, DevOps, interactive project maps. Native Claude Code plugin, agent-agnostic skills.">
+<meta property="og:url" content="https://tojim00d.github.io/Orbit-skills/">
+<meta property="og:image" content="https://tojim00d.github.io/Orbit-skills/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Orbit — Claude Code skill pack">
+<meta name="twitter:description" content="89 agent skills in one end-to-end pipeline for Claude Code; portable to Codex, Qwen Code, DeepSeek and any SKILL.md loader.">
+<meta name="twitter:image" content="https://tojim00d.github.io/Orbit-skills/og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "Orbit",
+  "alternateName": "Orbit Claude Code skill pack",
+  "description": "Open-source Claude Code plugin with 89 agent skills forming one end-to-end pipeline: Understand, Build, Operate. Spec-driven development on OpenSpec, reverse engineering, DevOps and interactive project maps. Skills are standard SKILL.md folders, portable to Codex, Qwen Code, GLM, DeepSeek and other agents.",
+  "codeRepository": "https://github.com/tojim00d/Orbit-skills",
+  "url": "https://tojim00d.github.io/Orbit-skills/",
+  "license": "https://opensource.org/licenses/MIT",
+  "programmingLanguage": ["Markdown", "Python", "JavaScript"],
+  "runtimePlatform": "Claude Code",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "macOS, Linux, Windows",
+  "keywords": "Claude Code, agent skills, skill pack, spec-driven development, OpenSpec, reverse engineering, Kubernetes, project map, Codex, Qwen Code, DeepSeek",
+  "version": "3.0.0",
+  "author": {"@type": "Organization", "name": "Orbit contributors"},
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is Orbit?", "acceptedAnswer": {"@type": "Answer", "text": "Orbit is a free, MIT-licensed skill pack for Claude Code with 89 agent skills organized as one pipeline: Understand, Build, Operate, with shared artifacts in the .orbit/ folder."}},
+    {"@type": "Question", "name": "How do I install Orbit in Claude Code?", "acceptedAnswer": {"@type": "Answer", "text": "Run claude plugin marketplace add tojim00d/Orbit-skills, then claude plugin install orbit@orbit, restart Claude Code and type /orbit:orbit. From a local clone, run ./install.sh."}},
+    {"@type": "Question", "name": "How is Orbit different from other Claude Code skill packs?", "acceptedAnswer": {"@type": "Answer", "text": "Orbit is a sequenced pipeline rather than a collection: every skill has a step number, input, output and next step, and all skills share one artifact folder. Methods from 18 community packs and the ASD-STE100 standard were rewritten and improved, with references in every skill."}},
+    {"@type": "Question", "name": "Does Orbit work with Codex, Qwen Code, GLM, DeepSeek or other agents?", "acceptedAnswer": {"@type": "Answer", "text": "Orbit is native to Claude Code, and its 89 skills are plain SKILL.md folders. Codex, Qwen Code, Cursor and other agents read them via AGENTS.md or ./install.sh --skills-dir; GLM, Qwen and DeepSeek work through a Claude Code-compatible endpoint. Slash commands and subagents are Claude Code-only."}},
+    {"@type": "Question", "name": "Can Orbit do reverse engineering?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, for your own or authorized targets: Docker/OCI images, JAR/WAR, Helm charts, npm/pip/NuGet packages, binaries, web apps, OpenAPI recovery from traffic and business rules from legacy code."}},
+    {"@type": "Question", "name": "Is Orbit free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. MIT licence for Orbit's own work; borrowed helper tools keep their original licences, listed in CREDITS.md."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Orbit — Claude Code skill pack",
+  "url": "https://tojim00d.github.io/Orbit-skills/",
+  "inLanguage": ["en", "ru"],
+  "about": {"@type": "SoftwareSourceCode", "name": "Orbit", "codeRepository": "https://github.com/tojim00d/Orbit-skills"}
+}
+</script>
+<style>
+:root{--ink:#292929;--muted:#6b6760;--line:#dedcd7;--paper:#f7f6f3;--yellow:#ffe24b;--blue:#2f5da8;--green:#2e7d55;--gold:#8a6d00}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--paper)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}header{background:var(--ink);color:#fff;padding:56px 0 44px}
+h1{font-size:40px;margin:0 0 12px;line-height:1.15}h1 b{background:var(--yellow);color:var(--ink);padding:0 10px;border-radius:8px}
+.lead{color:#d9d6cf;font-size:19px;max-width:820px}.lead code{background:rgba(255,255,255,.14);color:#ffe24b;padding:0 4px}.btns{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;padding:10px 18px;border-radius:999px;background:var(--yellow);color:var(--ink);text-decoration:none;font-weight:700}
+.btn.o{background:transparent;color:#fff;border:1px solid #777}
+section{padding:36px 0;border-bottom:1px solid var(--line)}h2{font-size:26px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}code{background:#efeee9;padding:1px 6px;border-radius:6px;font-size:14px}
+pre{background:var(--ink);color:#f3f1ec;padding:14px 16px;border-radius:12px;overflow:auto}
+.flow{font-size:20px;font-weight:700}.p1{color:var(--blue)}.p2{color:var(--green)}.p3{color:var(--gold)}
+.faq p{margin:0 0 14px}.faq b{display:block}.table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.table th,.table td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.table th{background:#efeee9;font-size:14px}.table tr:last-child td{border-bottom:0}
+footer{padding:28px 0;color:var(--muted);font-size:14px}a{color:var(--blue)}
+.share{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.share a{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;text-decoration:none;font-weight:600;font-size:14px}.share a.star{background:var(--yellow);border-color:var(--yellow)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1><b>Orbit</b> — Claude Code skill pack for the full software lifecycle</h1>
+<p class="lead">89 agent skills in one end-to-end pipeline: clarify the task, understand the codebase, write the spec on OpenSpec, build test-first, review code and security, ship to Kubernetes, and keep a living project map. Native Claude Code plugin; the skills are plain <code>SKILL.md</code> folders, so Codex, Qwen Code, DeepSeek and other agents can use them too. Open source, MIT.</p>
+<div class="btns"><a class="btn" href="https://github.com/tojim00d/Orbit-skills">GitHub</a><a class="btn o" href="map.html">Interactive pack map</a><a class="btn o" href="https://github.com/tojim00d/Orbit-skills/blob/main/CATALOG.md">All 89 skills</a><a class="btn o" href="https://github.com/tojim00d/Orbit-skills">★ Star on GitHub</a><a class="btn o" href="index.ru.html">Русский</a></div>
+</div></header>
+<main class="wrap">
+<section><p class="flow"><span class="p1">① Understand</span> → <span class="p2">② Build</span> → <span class="p3">③ Operate</span> → ↺ next loop</p>
+<p>Every skill has a step number, an input, an output and a next step. All skills read and write one artifact folder, <code>.orbit/</code>, so work survives new sessions and hand-overs. <code>/orbit:orbit &lt;task&gt;</code> proposes a 3–7 step route and walks it.</p></section>
+<section><h2>What Orbit can do</h2><div class="grid">
+<div class="card"><h3>Understand any codebase</h3>Knowledge graph with <code>file:line</code> evidence, codebase survey, impact analysis, onboarding guide.</div>
+<div class="card"><h3>Reverse engineering</h3>Docker images, JAR, Helm charts, npm/pip/NuGet, binaries, web apps; OpenAPI from traffic; business rules from legacy.</div>
+<div class="card"><h3>Spec-driven development</h3>Requirements, design options, specs on OpenSpec, plans of small verifiable steps.</div>
+<div class="card"><h3>Build and prove</h3>Test-first, subagent delegation, root-cause debugging, code and security review, no "done" without evidence.</div>
+<div class="card"><h3>DevOps and operations</h3>Kubernetes, Helm, GitOps, CI triage, observability review, runbooks, incident response.</div>
+<div class="card"><h3>Maps and diagrams</h3>Interactive one-file project maps, static SVG/PNG diagrams, stack diagrams with logos.</div>
+</div></section>
+<section><h2>Install</h2>
+<pre>claude plugin marketplace add tojim00d/Orbit-skills
+claude plugin install orbit@orbit
+# restart Claude Code, then:
+/orbit:orbit build a feature that exports reports to CSV</pre>
+<p>From a local clone: <code>./install.sh</code>. For another agent: <code>./install.sh --skills-dir &lt;dir&gt;</code> and read <a href="https://github.com/tojim00d/Orbit-skills/blob/main/AGENTS.md">AGENTS.md</a>.</p></section>
+<section><h2>Compatibility</h2>
+<table class="table"><tr><th>You use</th><th>How to run Orbit</th></tr>
+<tr><td>Claude Code — with Claude, or GLM / Z.ai, Qwen, DeepSeek via an Anthropic-compatible endpoint</td><td>Install the plugin; use the <code>/orbit:…</code> commands</td></tr>
+<tr><td>OpenAI Codex, Qwen Code, Cursor, other IDE agents</td><td>Read <a href="https://github.com/tojim00d/Orbit-skills/blob/main/AGENTS.md">AGENTS.md</a>; copy skills with <code>./install.sh --skills-dir &lt;dir&gt;</code></td></tr>
+<tr><td>Any agent that loads the Agent Skills format</td><td>Point it at <code>plugins/orbit/skills/</code></td></tr>
+</table>
+<p>Full table and model notes: <a href="https://github.com/tojim00d/Orbit-skills/blob/main/COMPATIBILITY.md">COMPATIBILITY.md</a>.</p></section>
+<section><h2>Built on the best community methods</h2>
+<p>Orbit's skills are its own, but they stand on proven methods from superpowers, Matt Pocock's skills, Skills by Anthropic, UI UX Pro Max, Replica, backend-skills, Ponytail, stack-diagram, code-mode, Understand Anything, Graft/Trail-code, GSD, REA and more — rewritten, merged and improved. Every skill names its sources. See <a href="https://github.com/tojim00d/Orbit-skills/blob/main/CREDITS.md">credits</a>.</p></section>
+<section class="faq"><h2>FAQ</h2>
+<p><b>What is Orbit?</b>Orbit is a free, MIT-licensed skill pack for Claude Code with 89 agent skills organized as one pipeline: Understand, Build, Operate, with shared artifacts in the <code>.orbit/</code> folder.</p>
+<p><b>How do I install Orbit in Claude Code?</b>Run <code>claude plugin marketplace add tojim00d/Orbit-skills</code>, then <code>claude plugin install orbit@orbit</code>, restart Claude Code and type <code>/orbit:orbit</code>. From a local clone, run <code>./install.sh</code>.</p>
+<p><b>How is Orbit different from other Claude Code skill packs?</b>Orbit is a sequenced pipeline rather than a collection: every skill has a step number, input, output and next step, and all skills share one artifact folder. Methods from 18 community packs and the ASD-STE100 standard were rewritten and improved, with references in every skill.</p>
+<p><b>Does Orbit work with Codex, Qwen Code, GLM, DeepSeek or other agents?</b>Orbit is native to Claude Code, and its 89 skills are plain <code>SKILL.md</code> folders. Codex, Qwen Code, Cursor and other agents read them via <code>AGENTS.md</code> or <code>./install.sh --skills-dir</code>; GLM, Qwen and DeepSeek work through a Claude Code-compatible endpoint. Slash commands and subagents are Claude Code-only.</p>
+<p><b>Can Orbit do reverse engineering?</b>Yes, for your own or authorized targets: Docker/OCI images, JAR/WAR, Helm charts, npm/pip/NuGet packages, binaries, web apps, OpenAPI recovery from traffic and business rules from legacy code.</p>
+<p><b>Is Orbit free?</b>Yes. MIT licence for Orbit's own work; borrowed helper tools keep their original licences, listed in <a href="https://github.com/tojim00d/Orbit-skills/blob/main/CREDITS.md">CREDITS.md</a>.</p>
+</section>
+</main>
+<section><h2>Share Orbit</h2>
+<p>Open source and free. If it saves you time, a star and a share help other engineers find it.</p>
+<div class="share">
+<a class="star" href="https://github.com/tojim00d/Orbit-skills">★ Star on GitHub</a>
+<a href="https://twitter.com/intent/tweet?text=Orbit%20%E2%80%94%2089%20agent%20skills%20for%20Claude%20Code%20in%20one%20pipeline%3A%20Understand%20%E2%86%92%20Build%20%E2%86%92%20Operate&url=https%3A%2F%2Ftojim00d.github.io%2FOrbit-skills%2F">Share on X</a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Ftojim00d.github.io%2FOrbit-skills%2F&title=Orbit%20%E2%80%94%2089%20agent%20skills%20for%20Claude%20Code%2C%20one%20lifecycle%20pipeline">Reddit</a>
+<a href="https://t.me/share/url?url=https%3A%2F%2Ftojim00d.github.io%2FOrbit-skills%2F&text=Orbit%20%E2%80%94%2089%20%D1%81%D0%BA%D0%B8%D0%BB%D0%BB%D0%BE%D0%B2%20%D0%B4%D0%BB%D1%8F%20Claude%20Code">Telegram</a>
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftojim00d.github.io%2FOrbit-skills%2F">LinkedIn</a>
+<footer class="wrap">Orbit · MIT · <a href="https://github.com/tojim00d/Orbit-skills">tojim00d/Orbit-skills</a> · English · <a href="index.ru.html">Русский</a> · <a href="map.html">pack map</a> · <a href="map.ru.html">карта пака</a></footer>
+</body></html>
