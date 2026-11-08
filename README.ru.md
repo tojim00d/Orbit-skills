@@ -54,6 +54,8 @@
 
 [![Карта пака Orbit: фазы, номера шагов и маршруты](assets/map-preview.png)](https://tojim00d.github.io/Orbit-skills/map.ru.html)
 
+Два скилла, которые делают эту страницу — `project-map` и `project-diagram` — также опубликованы отдельным пакетом для использования вне пака: **[orbit-map](https://github.com/tojim00d/orbit-map)**.
+
 ## Что умеет
 
 | Возможность | Скиллы |

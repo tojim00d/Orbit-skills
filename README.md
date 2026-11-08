@@ -56,6 +56,8 @@ A single self-contained page: the whole pack on one screen — phases, numbered 
 
 [![The Orbit pack map: phases, numbered steps and ready routes](assets/map-preview.png)](https://tojim00d.github.io/Orbit-skills/map.html)
 
+The two skills behind this page — `project-map` and `project-diagram` — are also published as a standalone package for use outside the pack: **[orbit-map](https://github.com/tojim00d/orbit-map)**.
+
 ## What it can do
 
 | Capability | Skills |
